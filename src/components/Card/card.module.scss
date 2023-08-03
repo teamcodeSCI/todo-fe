@@ -1,0 +1,22 @@
+.card {
+  padding: 20px 40px;
+  border-radius: 10px;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  box-shadow: 5px 5px 17px -11px #000;
+  cursor: pointer;
+  .title {
+    color: #fff;
+    font-size: 1rem;
+    line-clamp: 3;
+    box-orient: vertical;
+    display: -webkit-inline-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 80px;
+    user-select: none;
+  }
+}
