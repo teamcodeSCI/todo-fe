@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const ForgotPassword = () => {
   const [forgotPass, setForgotPass] = useState({
-    phone: '',
+    email: '',
     password: '',
     rePassword: '',
   });
@@ -16,8 +16,8 @@ const ForgotPassword = () => {
     <div className={style['forgotPassword']}>
       <div className={style['form']}>
         <div className={style['input']}>
-          <label htmlFor="phone">Số điện thoại</label>
-          <input id="phone" type="text" name="phone" value={forgotPass.phone} onChange={handleForgotPass} />
+          <label htmlFor="email">Email</label>
+          <input id="email" type="text" name="email" value={forgotPass.email} onChange={handleForgotPass} />
         </div>
         <div className={style['input']}>
           <label htmlFor="password">Mật khẩu mới</label>

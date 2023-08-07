@@ -3,7 +3,7 @@ import style from './login.module.scss';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
-  const [login, setLogin] = useState({ phone: '', password: '' });
+  const [login, setLogin] = useState({ email: '', password: '' });
   const handleLogin = (e) => {
     setLogin({ ...login, [e.target.name]: e.target.value });
   };
@@ -12,8 +12,8 @@ const Login = () => {
     <div className={style['login']}>
       <div className={style['form']}>
         <div className={style['input']}>
-          <label htmlFor="phone">Số điện thoại</label>
-          <input id="phone" type="text" name="phone" value={login.phone} onChange={handleLogin} />
+          <label htmlFor="email">Email</label>
+          <input id="email" type="text" name="email" value={login.email} onChange={handleLogin} />
         </div>
         <div className={style['input']}>
           <label htmlFor="password">

@@ -1,15 +1,29 @@
 import React, { useState } from 'react';
 import style from './register.module.scss';
 import { Link } from 'react-router-dom';
+import validator from 'validator';
+import Notice from '@/components/Notice';
 
 const Register = () => {
-  const [register, setRegister] = useState({ firstName: '', lastName: '', phone: '', password: '', rePassword: '' });
+  const [register, setRegister] = useState({ firstName: '', lastName: '', email: '', password: '', rePassword: '' });
+  const [notify, setNotify] = useState('');
+
   const handleRegister = (e) => {
     setRegister({ ...register, [e.target.name]: e.target.value });
   };
-  const clickRegister = () => {};
+  const clickRegister = () => {
+    if (!validator.isEmail(register.email) || !register.email.endsWith('@scigroup.com.vn')) {
+      setNotify('Email không hợp lệ !');
+      return;
+    }
+  };
+  const handleClose = () => {
+    setNotify('');
+  };
+
   return (
     <div className={style['register']}>
+      {notify !== '' && <Notice notice={notify} close={handleClose} />}
       <div className={style['form']}>
         <div className={style['input']}>
           <label htmlFor="firstName">Họ và tên đệm</label>
@@ -20,8 +34,8 @@ const Register = () => {
           <input id="lastName" type="text" name="lastName" value={register.lastName} onChange={handleRegister} />
         </div>
         <div className={style['input']}>
-          <label htmlFor="phone">Số điện thoại</label>
-          <input id="phone" type="text" name="phone" value={register.phone} onChange={handleRegister} />
+          <label htmlFor="email">Email</label>
+          <input id="email" type="text" name="email" value={register.email} onChange={handleRegister} />
         </div>
         <div className={style['input']}>
           <label htmlFor="password">Mật khẩu</label>
