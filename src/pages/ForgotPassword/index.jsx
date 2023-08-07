@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import style from './forgotPassword.module.scss';
 import { Link } from 'react-router-dom';
+import { validateEmail } from '@/utils/help';
+import Notice from '@/components/Notice';
 
 const ForgotPassword = () => {
   const [forgotPass, setForgotPass] = useState({
@@ -8,12 +10,22 @@ const ForgotPassword = () => {
     password: '',
     rePassword: '',
   });
+  const [notify, setNotify] = useState('');
   const handleForgotPass = (e) => {
     setForgotPass({ ...forgotPass, [e.target.name]: e.target.value });
   };
-  const clickForgotPass = () => {};
+  const clickForgotPass = () => {
+    if (!validateEmail(forgotPass.email)) {
+      setNotify('Email không hợp lệ !');
+      return;
+    }
+  };
+  const handleClose = () => {
+    setNotify('');
+  };
   return (
     <div className={style['forgotPassword']}>
+      {notify !== '' && <Notice notice={notify} close={handleClose} />}
       <div className={style['form']}>
         <div className={style['input']}>
           <label htmlFor="email">Email</label>

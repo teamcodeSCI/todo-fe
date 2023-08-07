@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import style from './register.module.scss';
 import { Link } from 'react-router-dom';
-import validator from 'validator';
 import Notice from '@/components/Notice';
+import { validateEmail } from '@/utils/help';
 
 const Register = () => {
   const [register, setRegister] = useState({ firstName: '', lastName: '', email: '', password: '', rePassword: '' });
@@ -12,7 +12,7 @@ const Register = () => {
     setRegister({ ...register, [e.target.name]: e.target.value });
   };
   const clickRegister = () => {
-    if (!validator.isEmail(register.email) || !register.email.endsWith('@scigroup.com.vn')) {
+    if (!validateEmail(register.email)) {
       setNotify('Email không hợp lệ !');
       return;
     }
