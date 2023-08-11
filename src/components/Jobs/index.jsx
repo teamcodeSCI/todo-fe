@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { v4 as uuid } from 'uuid';
 import style from './jobs.module.scss';
-import Card from '../Card';
+
+import Category from '../Category';
 const dummyData = [
   { id: uuid(), title: 'To do', jobs: [{ id: uuid(), title: 'test' }] },
   { id: uuid(), title: 'In Progress', jobs: [{ id: uuid(), title: 'test' }] },
@@ -53,29 +54,7 @@ const Jobs = () => {
         {jobs &&
           jobs.map((section) => (
             <Droppable key={section.id} droppableId={section.id}>
-              {(provided) => (
-                <div {...provided.droppableProps} className={style['section']} ref={provided.innerRef}>
-                  <div className={style['section-title']}>{section.title}</div>
-                  <div className={style['section-content']}>
-                    {section.jobs.map((job, idx) => (
-                      <Draggable key={job.id} draggableId={job.id} index={idx}>
-                        {(provided, snapshot) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            style={{ ...provided.draggableProps.style, opacity: snapshot.isDragging ? '0.5' : 1 }}
-                          >
-                            <Card>{job.title}</Card>
-                            {provided.placeholder}
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                  </div>
-                </div>
-              )}
+              {(provided) => <Category provided={provided} section={section} />}
             </Droppable>
           ))}
       </div>

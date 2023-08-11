@@ -1,0 +1,34 @@
+.section {
+  min-width: 272px;
+  max-width: 272px;
+  border-radius: 12px;
+  background: #f1f2f4;
+  margin: 0 6px;
+
+  &:first-child {
+    margin-left: 20px;
+  }
+  &:last-child {
+    margin-right: 20px;
+  }
+  &-title {
+    padding: 15px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    span {
+      cursor: pointer;
+    }
+    input {
+      font-size: 14px;
+      font-weight: 600;
+      color: #172b4d;
+      border: none;
+      width: 100%;
+      padding: 5px 10px;
+      display: block;
+      border-radius: 3px;
+      background-color: #ffffff;
+      box-shadow: inset 0 0 0 2px #388bff;
+    }
+  }
+}
