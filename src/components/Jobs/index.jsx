@@ -1,61 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { v4 as uuid } from 'uuid';
 import style from './jobs.module.scss';
-
+import { v4 as uuid } from 'uuid';
 import Category from '../Category';
-const dummyData = [
-  { id: uuid(), title: 'To do', jobs: [{ id: uuid(), title: 'test' }] },
-  { id: uuid(), title: 'In Progress', jobs: [{ id: uuid(), title: 'test' }] },
-  { id: uuid(), title: 'Completed', jobs: [{ id: uuid(), title: 'test' }] },
-  { id: uuid(), title: 'Verify', jobs: [{ id: uuid(), title: 'test' }] },
-];
+import { useDispatch } from 'react-redux';
+import { createCategories, fetchCategories, updateCategories } from '@/features/category/categoriesApi';
+import { useSelector } from 'react-redux';
+import { categoriesListSelector, loadedCategoriesSelector } from '@/features/category/categoriesSlice';
+
 const Jobs = () => {
-  const [jobs, setJobs] = useState(dummyData);
+  const dispatch = useDispatch();
+  const jobs = useSelector(categoriesListSelector);
+  const loaded = useSelector(loadedCategoriesSelector);
   const [isAdd, setIsAdd] = useState(false);
+  const [newCate, setNewCate] = useState('');
   const handleIsAdd = () => {
     setIsAdd(!isAdd);
   };
 
   const handleDragEnd = (value) => {
-    if (!value) return;
-    const { source, destination } = value;
-    if (destination !== null) {
-      const sourceColIdx = jobs.findIndex((e) => e.id === source.droppableId);
-      const destinationColIdx = jobs.findIndex((e) => e.id === destination.droppableId);
-
-      if (source.droppableId === destination.droppableId) {
-        const sourceRowIdx = source.index;
-        const destinationRowIdx = destination.index;
-        const sourceCol = jobs[sourceColIdx];
-
-        const sourceTasks = sourceCol.jobs[sourceRowIdx];
-        const destinationTasks = sourceCol.jobs[destinationRowIdx];
-
-        jobs[sourceColIdx].jobs[destinationRowIdx] = sourceTasks;
-        jobs[sourceColIdx].jobs[sourceRowIdx] = destinationTasks;
-
-        setJobs(jobs);
-      } else {
-        const sourceCol = jobs[sourceColIdx];
-        const destinationCol = jobs[destinationColIdx];
-
-        const sourceTasks = [...sourceCol.jobs];
-        const destinationTasks = [...destinationCol.jobs];
-
-        const [removed] = sourceTasks.splice(source.index, 1);
-        destinationTasks.splice(destination.index, 0, removed);
-
-        jobs[sourceColIdx].jobs = sourceTasks;
-        jobs[destinationColIdx].jobs = destinationTasks;
-        setJobs(jobs);
-      }
+    dispatch(updateCategories(value));
+  };
+  const handleNewCate = (e) => {
+    setNewCate(e.target.value);
+  };
+  const createNewCate = () => {
+    if (newCate !== '') {
+      dispatch(createCategories({ id: uuid(), title: newCate, jobs: [] }));
+      setNewCate('');
+      setIsAdd(false);
     }
   };
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <div className={style['job']}>
-        {jobs &&
+        {loaded &&
           jobs.map((section) => (
             <Droppable key={section.id} droppableId={section.id}>
               {(provided) => <Category provided={provided} section={section} />}
@@ -64,9 +46,11 @@ const Jobs = () => {
         <div className={style['newJob']} style={isAdd ? { opacity: 1 } : { opacity: 0.6 }}>
           {isAdd ? (
             <div className={style['addForm']}>
-              <input type="text" placeholder="Nhập tiêu đề danh sách..." />
+              <input type="text" value={newCate} onChange={handleNewCate} placeholder="Nhập tiêu đề danh sách..." />
               <div className={style['btn']}>
-                <button className={style['submit']}>Thêm danh sách</button>
+                <button className={style['submit']} onClick={createNewCate}>
+                  Thêm danh sách
+                </button>
                 <button className={style['cancel']} onClick={handleIsAdd}>
                   <i className="icon-cancel-2"></i>
                 </button>
