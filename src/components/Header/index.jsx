@@ -5,8 +5,9 @@ import { userList } from '@/utils/const';
 import UserTag from '../UserTag';
 
 const Header = () => {
+  const text = 'Bảng 1';
   const inputRef = useRef(null);
-  const [title, setTitle] = useState('Bảng 1');
+  const [title, setTitle] = useState(text);
   const [active, setActive] = useState(false);
 
   const handleTitle = (e) => {
@@ -14,12 +15,15 @@ const Header = () => {
   };
   useOutside(inputRef, () => {
     setActive(false);
-    if (active) console.log('hello');
+    if (active) {
+      if (text !== title) {
+      }
+    }
   });
   return (
     <div className={style['header']}>
       <div className={style['title']} onClick={() => setActive(true)} ref={inputRef}>
-        {active ? <input type="text" value={title} onChange={handleTitle} /> : <span>Bảng 1</span>}
+        {active ? <input type="text" value={title} onChange={handleTitle} /> : <span>{title}</span>}
       </div>
       <div className={style['user']}>
         {userList.slice(0, 3).map((item) => (
