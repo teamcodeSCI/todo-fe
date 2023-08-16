@@ -35,7 +35,7 @@ const Category = ({ provided, section }) => {
           <textarea placeholder="Nhập tiêu đề cho thẻ này..." cols="30" rows="10"></textarea>
           <div className={style['btn']}>
             <button className={style['submit']}>Thêm thẻ</button>
-            <button className={style['cancel']}>
+            <button className={style['cancel']} onClick={handleIsAdd}>
               <i className="icon-cancel-2"></i>
             </button>
           </div>

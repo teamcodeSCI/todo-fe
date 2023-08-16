@@ -12,6 +12,10 @@ const dummyData = [
 ];
 const Jobs = () => {
   const [jobs, setJobs] = useState(dummyData);
+  const [isAdd, setIsAdd] = useState(false);
+  const handleIsAdd = () => {
+    setIsAdd(!isAdd);
+  };
 
   const handleDragEnd = (value) => {
     if (!value) return;
@@ -57,7 +61,23 @@ const Jobs = () => {
               {(provided) => <Category provided={provided} section={section} />}
             </Droppable>
           ))}
-        <div className={style['newJob']}>+ Thêm danh sách khác</div>
+        <div className={style['newJob']} style={isAdd ? { opacity: 1 } : { opacity: 0.6 }}>
+          {isAdd ? (
+            <div className={style['addForm']}>
+              <input type="text" placeholder="Nhập tiêu đề danh sách..." />
+              <div className={style['btn']}>
+                <button className={style['submit']}>Thêm danh sách</button>
+                <button className={style['cancel']} onClick={handleIsAdd}>
+                  <i className="icon-cancel-2"></i>
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className={style['addBtn']} onClick={handleIsAdd}>
+              + Thêm danh sách khác
+            </div>
+          )}
+        </div>
       </div>
     </DragDropContext>
   );
