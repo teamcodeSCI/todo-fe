@@ -1,4 +1,27 @@
 .job {
   display: flex;
   align-items: flex-start;
+  padding-bottom: 10px;
+  .newJob {
+    min-width: 250px;
+    max-width: 250px;
+    border-radius: 12px;
+    background: #f5e2c4;
+    margin: 0 6px;
+    padding: 15px 20px;
+    box-shadow: 0 1px 1px #091e4240, 0 0 1px #091e424f;
+    height: 58px;
+    display: flex;
+
+    align-items: center;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 14px;
+    opacity: 0.6;
+    transition: all 0.2s linear;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
 }

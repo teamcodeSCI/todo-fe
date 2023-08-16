@@ -57,6 +57,7 @@ const Jobs = () => {
               {(provided) => <Category provided={provided} section={section} />}
             </Droppable>
           ))}
+        <div className={style['newJob']}>+ Thêm danh sách khác</div>
       </div>
     </DragDropContext>
   );
