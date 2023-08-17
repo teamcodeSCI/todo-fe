@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createCategories, fetchCategories, updateCategories } from './categoriesApi';
+import { createCategories, createItem, fetchCategories, updateCategories } from './categoriesApi';
 const initialState = {
   loaded: false,
   loading: false,
@@ -24,9 +24,9 @@ const categoriesSlice = createSlice({
       .addCase(updateCategories.fulfilled, (state, action) => {
         state.loading = false;
         state.loaded = true;
-        const value = action.payload;
-        if (!value) return;
-        const { source, destination } = value;
+
+        if (!action.payload) return;
+        const { source, destination } = action.payload;
         if (destination !== null) {
           const sourceColIdx = state.categoriesList.findIndex((e) => e.id === source.droppableId);
           const destinationColIdx = state.categoriesList.findIndex((e) => e.id === destination.droppableId);
@@ -62,6 +62,14 @@ const categoriesSlice = createSlice({
         state.loading = false;
         state.loaded = true;
         state.categoriesList.push(action.payload);
+      })
+      .addCase(createItem.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(createItem.fulfilled, (state, action) => {
+        state.loading = false;
+        state.loaded = true;
+        state.categoriesList.find((item) => item.id === action.payload.category_id).jobs.push(action.payload);
       }),
 });
 export default categoriesSlice;

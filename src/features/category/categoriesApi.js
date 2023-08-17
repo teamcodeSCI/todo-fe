@@ -15,3 +15,4 @@ export const createCategories = createAsyncThunk('categories/createCategories', 
 export const updateCategories = createAsyncThunk('categories/updateCategories', async (value) => {
   return value;
 });
+export const createItem = createAsyncThunk('item/createItem', async (item) => item);

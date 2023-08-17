@@ -63,22 +63,22 @@
       background: transparent;
       a {
         text-decoration: none;
-        transition: all 0.1s linear;
+        transition: all 0.2s linear;
         color: #42526e;
       }
       &:hover {
-        background: linear-gradient(to right, #c68f22, #daaf69);
         a {
           display: block;
           color: #fff;
           transform: translateX(3px);
+          color: #c68f22;
         }
       }
     }
     .active {
-      background: linear-gradient(to right, #c68f22, #daaf69);
+      background: linear-gradient(to right, #c68f22, #daaf69) !important;
       a {
-        color: #fff;
+        color: #fff !important;
       }
     }
   }
