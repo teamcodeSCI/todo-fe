@@ -1,8 +1,9 @@
 import React from 'react';
 import style from './home.module.scss';
-import Jobs from '@/components/Jobs';
+
 import Sidebar from '@/components/Sidebar';
 import Header from '@/components/Header';
+import { Outlet } from 'react-router-dom';
 
 const Home = () => {
   return (
@@ -11,7 +12,7 @@ const Home = () => {
       <main>
         <Header />
         <div className={style['main']}>
-          <Jobs />
+          <Outlet />
         </div>
       </main>
     </div>

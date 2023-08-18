@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import style from './jobs.module.scss';
 import { v4 as uuid } from 'uuid';
-import Category from '../Category';
+import Category from '../../components/Category';
 import { useDispatch } from 'react-redux';
 import { createCategories, fetchCategories, updateCategories } from '@/features/category/categoriesApi';
 import { useSelector } from 'react-redux';

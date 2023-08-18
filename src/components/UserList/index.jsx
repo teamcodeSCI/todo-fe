@@ -18,7 +18,7 @@ const UserList = ({ handleOpenUserList }) => {
         </div>
         <div className={style['content']}>
           {userList.map((item) => (
-            <UserItem {...item} />
+            <UserItem key={item.id} {...item} />
           ))}
         </div>
       </div>
