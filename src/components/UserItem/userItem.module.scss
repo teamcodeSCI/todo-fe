@@ -1,0 +1,33 @@
+.userItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 4px;
+  transition: all 0.2s linear;
+  .text {
+    p {
+      margin: 0;
+      font-size: 18px;
+    }
+    span {
+      font-size: 14px;
+      font-style: italic;
+    }
+  }
+  .role {
+    button {
+      background: #fff;
+      padding: 5px 20px;
+      border-radius: 20px;
+      border: 1px solid #c68f22;
+      color: #c68f22;
+      font-weight: 600;
+      transition: all 0.1s linear;
+      &:hover {
+        background: #c68f22;
+        color: #fff;
+      }
+    }
+  }
+}
