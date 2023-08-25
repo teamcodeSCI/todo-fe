@@ -4,22 +4,46 @@ import { userList } from '@/utils/const';
 
 const PersonalInfo = () => {
   const user = userList[0];
+  const [isEdit, setIsEdit] = useState(false);
+
   const [info, setInfo] = useState({
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
   });
   const [password, setPassword] = useState({ new: '', retype: '' });
+  const handleIsEdit = () => {
+    setIsEdit(!isEdit);
+  };
   const handlePassword = (e) => {
     setPassword({ ...password, [e.target.name]: e.target.value });
   };
   const handleInfo = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
+  const saveInfo = () => {
+    handleIsEdit();
+  };
   return (
     <div className={style['personalInfo']}>
       <div className={style['title']}>Thông tin cá nhân</div>
       <div className={style['info']}>
+        <div className={style['control']}>
+          {isEdit ? (
+            <div className={style['btnGroup']}>
+              <button className={style['cancel']} onClick={handleIsEdit}>
+                Hủy bỏ
+              </button>
+              <button className={style['save']} onClick={saveInfo}>
+                Lưu
+              </button>
+            </div>
+          ) : (
+            <button className={style['edit']} onClick={handleIsEdit}>
+              Sửa thông tin
+            </button>
+          )}
+        </div>
         <div className={style['avatar']}>{user.lastName.split('')[0]}</div>
         <div className={style['inputGroup']}>
           <div className={style['input']}>
@@ -31,7 +55,7 @@ const PersonalInfo = () => {
               onChange={handleInfo}
               value={info.firstName}
               placeholder="Họ và tên đệm..."
-              disabled
+              disabled={!isEdit}
             />
           </div>
           <div className={style['input']}>
@@ -43,7 +67,7 @@ const PersonalInfo = () => {
               onChange={handleInfo}
               value={info.lastName}
               placeholder="Tên..."
-              disabled
+              disabled={!isEdit}
             />
           </div>
           <div className={style['input']} style={{ width: '100%' }}>
@@ -55,7 +79,7 @@ const PersonalInfo = () => {
               onChange={handleInfo}
               value={info.email}
               placeholder="Email..."
-              disabled
+              disabled={!isEdit}
             />
           </div>
         </div>
