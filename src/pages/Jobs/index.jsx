@@ -11,6 +11,7 @@ import { categoriesListSelector, loadedCategoriesSelector } from '@/features/cat
 const Jobs = () => {
   const dispatch = useDispatch();
   const jobs = useSelector(categoriesListSelector);
+  console.log('jobs: ', jobs);
   const loaded = useSelector(loadedCategoriesSelector);
   const [isAdd, setIsAdd] = useState(false);
   const [newCate, setNewCate] = useState('');

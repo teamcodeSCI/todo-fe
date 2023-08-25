@@ -25,47 +25,40 @@
   }
   .menu {
     padding: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    border-radius: 5px;
+    cursor: pointer;
     a {
       color: #42526e;
       text-decoration: none;
       display: block;
-
       font-size: 14px;
       font-weight: 600;
+    }
+    a,
+    i {
+      transition: all 0.2s linear;
+    }
+    &:hover {
+      a,
+      i {
+        color: #c68f22;
+      }
     }
   }
   .active {
     background: linear-gradient(to right, #c68f22, #daaf69) !important;
-    a {
+    a,
+    i {
       color: #fff !important;
     }
   }
   .title {
-    margin: 0 5px 10px 15px;
+    margin: 10px 5px 10px 15px;
     font-size: 14px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-weight: 600;
     color: #42526e;
-    button {
-      font-size: 20px;
-      border: none;
-      background: none;
-      cursor: pointer;
-      padding: 0px;
-      border-radius: 3px;
-      &:hover {
-        background: #ccc;
-      }
-      i {
-        color: #42526e;
-      }
-    }
   }
   ul {
     list-style: none;

@@ -1,11 +1,10 @@
 import React from 'react';
 import style from './sidebar.module.scss';
 import { Link, useLocation } from 'react-router-dom';
-import { table } from '@/utils/const';
+import { menu, table } from '@/utils/const';
 
 const Sidebar = () => {
   const location = useLocation();
-  console.log('location: ', location);
   return (
     <div className={style['sidebar']}>
       <div className={style['img']}>
@@ -13,17 +12,17 @@ const Sidebar = () => {
         <span>SCI Work</span>
       </div>
       <div className={style['main']}>
-        <div className={location.pathname === `/` ? style['menu'] + ' ' + style['active'] : style['menu']}>
-          <Link to="/">
-            <i className="icon-th-large"></i> Bảng
-          </Link>
-        </div>
-        <div className={style['title']}>
-          Không gian làm việc
-          <button>
-            <i className="icon-plus-1"></i>
-          </button>
-        </div>
+        {menu.map((item) => (
+          <div
+            key={item.link}
+            className={location.pathname === item.link ? style['menu'] + ' ' + style['active'] : style['menu']}
+          >
+            <Link to={item.link}>
+              {item.icon} {item.title}
+            </Link>
+          </div>
+        ))}
+        <div className={style['title']}>Không gian làm việc</div>
         <ul>
           {table.map((item) => (
             <li className={location.pathname === `/table/${item.id}` ? style['active'] : ''} key={item.id}>

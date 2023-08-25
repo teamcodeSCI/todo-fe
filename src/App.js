@@ -12,6 +12,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />}>
         <Route path="/" element={<Table />} />
+        <Route path="/user" element={'user'} />
         <Route path="/table/:id" element={<Jobs />} />
       </Route>
       <Route path="/auth" element={<Auth />}>

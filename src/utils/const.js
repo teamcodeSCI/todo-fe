@@ -6,6 +6,10 @@ export const table = [
   { id: 4, name: 'Bảng 4' },
   { id: 5, name: 'Bảng 5' },
 ];
+export const menu = [
+  { link: '/user', title: 'Thông tin cá nhân', icon: <i className="icon-user"></i> },
+  { link: '/', title: 'Bảng', icon: <i className="icon-th-large"></i> },
+];
 export const userList = [
   {
     id: uuid(),
