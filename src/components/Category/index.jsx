@@ -6,6 +6,7 @@ import { Tooltip } from 'react-tooltip';
 import { v4 as uuid } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { createItem } from '@/features/category/categoriesApi';
+import NoticeModal from '../NoticeModal';
 
 const Category = ({ provided, section }) => {
   const dispatch = useDispatch();
@@ -16,10 +17,13 @@ const Category = ({ provided, section }) => {
   const [title, setTitle] = useState(section.title);
   const [active, setActive] = useState(false);
   const [isAdd, setIsAdd] = useState(false);
+  const [isDelCate, setIsDelCate] = useState(false);
   const handleIsAdd = () => {
     setIsAdd(!isAdd);
   };
-
+  const handleIsDel = () => {
+    setIsDelCate(!isDelCate);
+  };
   const handleTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -60,7 +64,7 @@ const Category = ({ provided, section }) => {
         <Tooltip id={'action'} />
         {dropdown && (
           <ul ref={dropdownRef}>
-            <li>Xóa</li>
+            <li onClick={handleIsDel}>Xóa</li>
           </ul>
         )}
       </div>
@@ -94,6 +98,7 @@ const Category = ({ provided, section }) => {
           <i className="icon-plus-1"></i> Thêm thẻ
         </div>
       )}
+      {isDelCate && <NoticeModal handleSetDel={handleIsDel} />}
     </div>
   );
 };
