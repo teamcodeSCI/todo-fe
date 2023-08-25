@@ -6,13 +6,14 @@ import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import Jobs from './pages/Jobs';
 import Table from './pages/Table';
+import PersonalInfo from './pages/PersonalInfo';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />}>
         <Route path="/" element={<Table />} />
-        <Route path="/user" element={'user'} />
+        <Route path="/user" element={<PersonalInfo />} />
         <Route path="/table/:id" element={<Jobs />} />
       </Route>
       <Route path="/auth" element={<Auth />}>
