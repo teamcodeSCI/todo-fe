@@ -1,10 +1,11 @@
 import React from 'react';
 import style from './sidebar.module.scss';
 import { Link, useLocation } from 'react-router-dom';
-import { menu, table } from '@/utils/const';
+import { menu, table, userList } from '@/utils/const';
 
 const Sidebar = () => {
   const location = useLocation();
+  const user = userList[0];
   return (
     <div className={style['sidebar']}>
       <div className={style['img']}>
@@ -30,6 +31,16 @@ const Sidebar = () => {
             </li>
           ))}
         </ul>
+      </div>
+      <div className={style['bottom']}>
+        <div className={style['info']}>
+          <div className={style['avatar']}>{user.lastName.split('')[0]}</div>
+          <div className={style['content']}>
+            <p>{user.firstName + ' ' + user.lastName}</p>
+            <span>{user.position}</span>
+          </div>
+        </div>
+        <div className={style['logout']}>Đăng xuất</div>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 .sidebar {
+  position: relative;
   max-width: 250px;
   min-width: 250px;
   height: 100%;
@@ -87,6 +88,56 @@
           color: #c68f22;
         }
       }
+    }
+  }
+  .bottom {
+    width: 90%;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
+    .info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .avatar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 50px;
+        min-width: 50px;
+        height: 50px;
+        background: orange;
+        font-weight: 900;
+        font-size: 24px;
+        color: #fff;
+        border-radius: 50%;
+      }
+      .content {
+        p {
+          font-weight: 600;
+          font-size: 18px;
+          margin: 0;
+        }
+        span {
+          font-size: 14px;
+        }
+      }
+    }
+    .logout {
+      padding: 10px;
+      margin-top: 10px;
+      text-align: center;
+      border-radius: 5px;
+      background: #fff;
+      box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      color: red;
     }
   }
 }

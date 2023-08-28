@@ -1,11 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import style from './userList.module.scss';
 import { userList } from '@/utils/const';
 import UserItem from '../UserItem';
 import { useOutside } from '@/utils/help';
+import AddMember from '../AddMember';
 
 const UserList = ({ handleOpenUserList }) => {
   const userRef = useRef(null);
+  const [isAddMember, setIsAddMember] = useState(false);
+  const handleAddMember = () => {
+    setIsAddMember(!isAddMember);
+  };
   useOutside(userRef, handleOpenUserList);
   return (
     <div className={style['userList']}>
@@ -17,10 +22,25 @@ const UserList = ({ handleOpenUserList }) => {
           </div>
         </div>
         <div className={style['content']}>
-          {userList.map((item) => (
-            <UserItem key={item.id} {...item} />
-          ))}
+          {isAddMember ? (
+            <AddMember />
+          ) : (
+            <>
+              <button className={style['addMember']} onClick={handleAddMember}>
+                <i className="icon-user-add"></i>
+                Thêm thành viên
+              </button>
+              {userList.map((item) => (
+                <UserItem key={item.id} {...item} />
+              ))}
+            </>
+          )}
         </div>
+        {isAddMember && (
+          <div className={style['footer']}>
+            <button onClick={handleAddMember}>Xong</button>
+          </div>
+        )}
       </div>
     </div>
   );

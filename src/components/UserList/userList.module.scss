@@ -6,6 +6,7 @@
   width: 100%;
   background: rgba(0, 0, 0, 0.6);
   z-index: 9999;
+
   .box {
     max-width: 500px;
     width: 95%;
@@ -42,9 +43,43 @@
       }
     }
     .content {
-      padding: 10px;
-      height: 50vh;
+      padding: 20px;
+      height: 45vh;
       overflow: auto;
+    }
+  }
+  .addMember {
+    width: 100%;
+    margin-bottom: 20px;
+    border: none;
+    padding: 7px 0;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: #65676b;
+  }
+  .footer {
+    padding: 20px;
+    color: #65676b;
+    border-top: 1px solid #ccc;
+    display: flex;
+    justify-content: flex-end;
+    button {
+      font-size: 16px;
+      font-weight: 600;
+      padding: 10px 25px;
+      background: #daaf69;
+      border: none;
+      color: #fff;
+      border-radius: 8px;
+      transition: all 0.2s linear;
+      &:hover {
+        background: #c68f22;
+      }
     }
   }
 }

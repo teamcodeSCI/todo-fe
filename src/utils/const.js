@@ -18,6 +18,7 @@ export const userList = [
     email: 'ducdm@scigroup.com.vn',
     background: 'red',
     role: 'Admin',
+    position: 'Nhân viên code',
   },
   {
     id: uuid(),
@@ -26,6 +27,7 @@ export const userList = [
     email: 'longnv@scigroup.com.vn',
     background: 'blue',
     role: 'Member',
+    position: 'Nhân viên thiết kế',
   },
   {
     id: uuid(),
@@ -34,6 +36,7 @@ export const userList = [
     email: 'cuonghm@scigroup.com.vn',
     background: 'green',
     role: 'Member',
+    position: 'Nhân viên thiết kế',
   },
   {
     id: uuid(),
@@ -42,5 +45,6 @@ export const userList = [
     email: 'dattt@scigroup.com.vn',
     background: 'yellow',
     role: 'Member',
+    position: 'Nhân viên thiết kế',
   },
 ];
