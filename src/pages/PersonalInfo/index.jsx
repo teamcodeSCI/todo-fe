@@ -10,6 +10,7 @@ const PersonalInfo = () => {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
+    position: user.position,
   });
   const [password, setPassword] = useState({ new: '', retype: '' });
   const handleIsEdit = () => {
@@ -70,7 +71,7 @@ const PersonalInfo = () => {
               disabled={!isEdit}
             />
           </div>
-          <div className={style['input']} style={{ width: '100%' }}>
+          <div className={style['input']}>
             <label htmlFor="email">Email</label>
             <input
               type="text"
@@ -78,6 +79,18 @@ const PersonalInfo = () => {
               name="email"
               onChange={handleInfo}
               value={info.email}
+              placeholder="Email..."
+              disabled={!isEdit}
+            />
+          </div>
+          <div className={style['input']}>
+            <label htmlFor="position">Vị trí</label>
+            <input
+              type="text"
+              id="position"
+              name="text"
+              onChange={handleInfo}
+              value={info.position}
               placeholder="Email..."
               disabled={!isEdit}
             />
