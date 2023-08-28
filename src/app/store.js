@@ -1,9 +1,11 @@
 import categoriesSlice from '@/features/category/categoriesSlice';
+import positionSlice from '@/features/position/positionSlice';
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
   categories: categoriesSlice.reducer,
+  position: positionSlice.reducer,
 });
 const store = configureStore({
   reducer: rootReducer,
