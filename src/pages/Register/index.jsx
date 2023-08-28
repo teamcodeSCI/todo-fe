@@ -34,6 +34,17 @@ const Register = () => {
           <input id="lastName" type="text" name="lastName" value={register.lastName} onChange={handleRegister} />
         </div>
         <div className={style['input']}>
+          <label htmlFor="position">Vị trí</label>
+          <select name="position">
+            <option value="" disabled>
+              Chọn vị trí
+            </option>
+            <option value="">Nhân viên code</option>
+            <option value="">Nhân viên thiết kế</option>
+            <option value="">Leader thiết kế</option>
+          </select>
+        </div>
+        <div className={style['input']}>
           <label htmlFor="email">Email</label>
           <input id="email" type="text" name="email" value={register.email} onChange={handleRegister} />
         </div>
@@ -51,6 +62,7 @@ const Register = () => {
             onChange={handleRegister}
           />
         </div>
+
         <div className={style['btn']}>
           <button onClick={clickRegister}>Đăng ký</button>
         </div>

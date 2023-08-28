@@ -17,7 +17,8 @@ function App() {
         <Route path="/table/:id" element={<Jobs />} />
       </Route>
       <Route path="/auth" element={<Auth />}>
-        <Route path="/auth/login" element={<Login />} /> <Route path="/auth / register " element={<Register />} />
+        <Route path="/auth/login" element={<Login />} />
+        <Route path="/auth/register" element={<Register />} />
         <Route path="/auth/forgot-password" element={<ForgotPassword />} />
         <Route path="/auth" element={<Navigate to={'/auth/login'} />} />
       </Route>
