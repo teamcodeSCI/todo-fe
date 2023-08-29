@@ -1,4 +1,4 @@
-import { register } from './authApi';
+import { getUserAPI, loginAPI, register } from './authApi';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -20,6 +20,32 @@ const authSlice = createSlice({
         state.currentUser = action.payload;
       })
       .addCase(register.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
+        state.currentUser = action.payload;
+      })
+      .addCase(loginAPI.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(loginAPI.fulfilled, (state, action) => {
+        state.loading = false;
+        state.loaded = true;
+        state.currentUser = action.payload;
+      })
+      .addCase(loginAPI.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
+        state.currentUser = action.payload;
+      })
+      .addCase(getUserAPI.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(getUserAPI.fulfilled, (state, action) => {
+        state.loading = false;
+        state.loaded = true;
+        state.currentUser = action.payload;
+      })
+      .addCase(getUserAPI.rejected, (state, action) => {
         state.loading = false;
         state.loaded = false;
         state.currentUser = action.payload;

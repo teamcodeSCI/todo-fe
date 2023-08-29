@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { loadedPositionSelector, loadingPositionSelector, positionSelector } from '@/features/position/positionSlice';
 import Loading from '@/components/Loading';
 import { register } from '@/features/auth/authApi';
-import { currentUserSelector, loadedAuthSelector, loadingAuthSelector } from '@/features/auth/authSlice';
+import { loadedAuthSelector, loadingAuthSelector } from '@/features/auth/authSlice';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -21,8 +21,6 @@ const Register = () => {
 
   const registerLoaded = useSelector(loadedAuthSelector);
   const registerLoading = useSelector(loadingAuthSelector);
-  const currentUser = useSelector(currentUserSelector);
-  console.log('currentUser: ', currentUser);
 
   const [registerData, setRegisterData] = useState({
     firstName: '',

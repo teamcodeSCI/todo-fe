@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from './auth.module.scss';
-import { Outlet, useLocation } from 'react-router-dom';
-
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 const Auth = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   let title = '';
   switch (location.pathname) {
     case '/auth/login':
@@ -18,6 +19,9 @@ const Auth = () => {
     default:
       break;
   }
+  useEffect(() => {
+    if (localStorage.getItem('token')) navigate('/');
+  }, [navigate]);
   return (
     <div className={style['auth']}>
       <div className={style['img']}>

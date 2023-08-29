@@ -1,27 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './login.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { validateEmail } from '@/utils/help';
 import Notice from '@/components/Notice';
+import { useDispatch } from 'react-redux';
+import { loginAPI } from '@/features/auth/authApi';
+import { useSelector } from 'react-redux';
+import { currentUserSelector, loadedAuthSelector, loadingAuthSelector } from '@/features/auth/authSlice';
+import Loading from '@/components/Loading';
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const loginLoading = useSelector(loadingAuthSelector);
+  const loginLoaded = useSelector(loadedAuthSelector);
+  const currentUser = useSelector(currentUserSelector);
+
   const [login, setLogin] = useState({ email: '', password: '' });
   const [notify, setNotify] = useState('');
   const handleLogin = (e) => {
     setLogin({ ...login, [e.target.name]: e.target.value });
   };
   const clickLogin = () => {
+    if (login.email === '' || login.password === '') {
+      setNotify('Vui lòng nhập đầy đủ thông tin');
+      return;
+    }
     if (!validateEmail(login.email)) {
       setNotify('Email không hợp lệ !');
       return;
     }
+    dispatch(loginAPI(login));
   };
   const handleClose = () => {
     setNotify('');
   };
-
+  useEffect(() => {
+    if (loginLoaded) {
+      localStorage.setItem('token', currentUser.data.data.token);
+    }
+    if (localStorage.getItem('token')) navigate('/');
+  }, [loginLoaded, currentUser, navigate]);
   return (
     <div className={style['login']}>
+      {loginLoading && <Loading />}
       {notify !== '' && <Notice notice={notify} close={handleClose} />}
       <div className={style['form']}>
         <div className={style['input']}>

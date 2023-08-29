@@ -13,3 +13,9 @@ export const register = createAsyncThunk('auth/register', async (body) =>
     }),
   ),
 );
+export const loginAPI = createAsyncThunk('auth/login', async (body) =>
+  http.post('/auth/login', JSON.stringify({ email: body.email, password: body.password })),
+);
+export const getUserAPI = createAsyncThunk('auth/getUser', async (token) =>
+  http.get('/auth/get-user', { headers: { Authorization: token } }),
+);
