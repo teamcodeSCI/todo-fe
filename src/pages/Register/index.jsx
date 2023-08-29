@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import style from './register.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Notice from '@/components/Notice';
 import { validateEmail } from '@/utils/help';
 import { useDispatch } from 'react-redux';
@@ -8,14 +8,23 @@ import { fetchPosition } from '@/features/position/positionApi';
 import { useSelector } from 'react-redux';
 import { loadedPositionSelector, loadingPositionSelector, positionSelector } from '@/features/position/positionSlice';
 import Loading from '@/components/Loading';
+import { register } from '@/features/auth/authApi';
+import { currentUserSelector, loadedAuthSelector, loadingAuthSelector } from '@/features/auth/authSlice';
 
 const Register = () => {
   const dispatch = useDispatch();
-  const positionList = useSelector(positionSelector);
+  const navigate = useNavigate();
+
   const positionLoaded = useSelector(loadedPositionSelector);
   const positionLoading = useSelector(loadingPositionSelector);
+  const positionList = useSelector(positionSelector);
 
-  const [register, setRegister] = useState({
+  const registerLoaded = useSelector(loadedAuthSelector);
+  const registerLoading = useSelector(loadingAuthSelector);
+  const currentUser = useSelector(currentUserSelector);
+  console.log('currentUser: ', currentUser);
+
+  const [registerData, setRegisterData] = useState({
     firstName: '',
     lastName: '',
     email: '',
@@ -26,34 +35,36 @@ const Register = () => {
   const [notify, setNotify] = useState('');
 
   const handleRegister = (e) => {
-    setRegister({ ...register, [e.target.name]: e.target.value });
+    setRegisterData({ ...registerData, [e.target.name]: e.target.value });
   };
   const clickRegister = () => {
     if (
-      register.firstName === '' ||
-      register.lastName === '' ||
-      register.position === '' ||
-      register.email === '' ||
-      register.password === '' ||
-      register.rePassword === ''
+      registerData.firstName === '' ||
+      registerData.lastName === '' ||
+      registerData.position === '' ||
+      registerData.email === '' ||
+      registerData.password === '' ||
+      registerData.rePassword === ''
     ) {
       setNotify('Vui lòng nhập đủ thông tin');
       return;
     }
-    if (!validateEmail(register.email)) {
+    if (!validateEmail(registerData.email)) {
       setNotify('Email không hợp lệ !');
       return;
     }
+    dispatch(register(registerData));
   };
   const handleClose = () => {
     setNotify('');
   };
   useEffect(() => {
     dispatch(fetchPosition());
-  }, [dispatch]);
+    if (registerLoaded) window.location.assign('/auth/login');
+  }, [dispatch, registerLoaded, navigate]);
   return (
     <div className={style['register']}>
-      {positionLoading && <Loading />}
+      {(positionLoading || registerLoading) && <Loading />}
       {notify !== '' && <Notice notice={notify} close={handleClose} />}
       <div className={style['form']}>
         <div className={style['input']}>
@@ -80,7 +91,7 @@ const Register = () => {
         </div>
         <div className={style['input']}>
           <label htmlFor="position">Vị trí</label>
-          <select name="position" onChange={handleRegister} value={register.position}>
+          <select name="position" onChange={handleRegister} defaultValue="" value={register.position}>
             <option value="" disabled>
               Chọn vị trí
             </option>

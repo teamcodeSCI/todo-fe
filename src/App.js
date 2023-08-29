@@ -7,11 +7,19 @@ import ForgotPassword from './pages/ForgotPassword';
 import Jobs from './pages/Jobs';
 import Table from './pages/Table';
 import PersonalInfo from './pages/PersonalInfo';
+import ProtectedRoute from './utils/ProtectedRoute';
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />}>
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        }
+      >
         <Route path="/" element={<Table />} />
         <Route path="/user" element={<PersonalInfo />} />
         <Route path="/table/:id" element={<Jobs />} />
