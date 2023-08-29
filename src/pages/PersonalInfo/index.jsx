@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import style from './personalInfo.module.scss';
-import { userList } from '@/utils/const';
+
+import { useSelector } from 'react-redux';
+import { currentUserSelector } from '@/features/auth/authSlice';
 
 const PersonalInfo = () => {
-  const user = userList[0];
+  const currentUser = useSelector(currentUserSelector);
+  const user = currentUser.data.data;
   const [isEdit, setIsEdit] = useState(false);
 
   const [info, setInfo] = useState({
-    firstName: user.firstName,
-    lastName: user.lastName,
+    firstName: user.first_name,
+    lastName: user.last_name,
     email: user.email,
     position: user.position,
   });
@@ -21,6 +24,10 @@ const PersonalInfo = () => {
   };
   const handleInfo = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
+  };
+  const handleResetPass = () => {
+    if (password.new === '' || password.retype === '') {
+    }
   };
   const saveInfo = () => {
     handleIsEdit();
@@ -45,7 +52,7 @@ const PersonalInfo = () => {
             </button>
           )}
         </div>
-        <div className={style['avatar']}>{user.lastName.split('')[0]}</div>
+        <div className={style['avatar']}>{user.last_name.split('')[0]}</div>
         <div className={style['inputGroup']}>
           <div className={style['input']}>
             <label htmlFor="firstName">Họ và tên đệm</label>
@@ -90,7 +97,7 @@ const PersonalInfo = () => {
               id="position"
               name="text"
               onChange={handleInfo}
-              value={info.position}
+              value={info.position.name}
               placeholder="Email..."
               disabled={!isEdit}
             />

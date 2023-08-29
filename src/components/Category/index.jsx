@@ -98,7 +98,7 @@ const Category = ({ provided, section }) => {
           <i className="icon-plus-1"></i> Thêm thẻ
         </div>
       )}
-      {isDelCate && <NoticeModal handleSetDel={handleIsDel} />}
+      {isDelCate && <NoticeModal message={'Bạn có chắc muốn xóa không ?'} handleSetDel={handleIsDel} />}
     </div>
   );
 };

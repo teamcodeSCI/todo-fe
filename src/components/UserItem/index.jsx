@@ -27,7 +27,7 @@ const UserItem = (props) => {
       <div className={style['role']}>
         <button onClick={handleSetDel}>Xóa</button>
       </div>
-      {isDel && <NoticeModal handleSetDel={handleSetDel} />}
+      {isDel && <NoticeModal message={'Bạn có chắc muốn xóa không ?'} handleSetDel={handleSetDel} />}
     </div>
   );
 };

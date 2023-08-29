@@ -1,11 +1,15 @@
 import React from 'react';
 import style from './sidebar.module.scss';
-import { Link, useLocation } from 'react-router-dom';
-import { menu, table, userList } from '@/utils/const';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { menu, table } from '@/utils/const';
+import { useSelector } from 'react-redux';
+import { currentUserSelector } from '@/features/auth/authSlice';
 
 const Sidebar = () => {
   const location = useLocation();
-  const user = userList[0];
+  const navigate = useNavigate();
+  const currentUser = useSelector(currentUserSelector);
+  const user = currentUser.data.data;
   return (
     <div className={style['sidebar']}>
       <div className={style['img']}>
@@ -34,13 +38,21 @@ const Sidebar = () => {
       </div>
       <div className={style['bottom']}>
         <div className={style['info']}>
-          <div className={style['avatar']}>{user.lastName.split('')[0]}</div>
+          <div className={style['avatar']}>{user.last_name.split('')[0]}</div>
           <div className={style['content']}>
-            <p>{user.firstName + ' ' + user.lastName}</p>
-            <span>{user.position}</span>
+            <p>{user.first_name + ' ' + user.last_name}</p>
+            <span>{user.position.name}</span>
           </div>
         </div>
-        <div className={style['logout']}>Đăng xuất</div>
+        <div
+          className={style['logout']}
+          onClick={() => {
+            localStorage.clear();
+            navigate('/auth');
+          }}
+        >
+          Đăng xuất
+        </div>
       </div>
     </div>
   );

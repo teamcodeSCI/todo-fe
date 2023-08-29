@@ -28,7 +28,7 @@ const TableItem = (props) => {
           </ul>
         )}
       </div>
-      {isDel && <NoticeModal handleSetDel={handleIsDel} />}
+      {isDel && <NoticeModal message={'Bạn có chắc muốn xóa không?'} handleSetDel={handleIsDel} />}
     </>
   );
 };

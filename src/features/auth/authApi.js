@@ -19,3 +19,9 @@ export const loginAPI = createAsyncThunk('auth/login', async (body) =>
 export const getUserAPI = createAsyncThunk('auth/getUser', async (token) =>
   http.get('/auth/get-user', { headers: { Authorization: token } }),
 );
+export const resetPassword = createAsyncThunk('auth/resetPassword', async (body) =>
+  http.post(
+    '/auth/reset-password',
+    JSON.stringify({ id: Number(body.id), password: body.new, c_password: body.retype }),
+  ),
+);
