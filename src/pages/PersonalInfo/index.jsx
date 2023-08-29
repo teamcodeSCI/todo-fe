@@ -3,19 +3,29 @@ import style from './personalInfo.module.scss';
 
 import { useSelector } from 'react-redux';
 import { currentUserSelector } from '@/features/auth/authSlice';
+import NoticeModal from '@/components/NoticeModal';
+import { useDispatch } from 'react-redux';
+import { resetPassword } from '@/features/resetPass/resetPassAPI';
+import { loadingResetPassSelector } from '@/features/resetPass/resetPassSlice';
+import Loading from '@/components/Loading';
+import { Navigate } from 'react-router-dom';
 
 const PersonalInfo = () => {
+  const dispatch = useDispatch();
   const currentUser = useSelector(currentUserSelector);
+
+  const loadingResetPass = useSelector(loadingResetPassSelector);
   const user = currentUser.data.data;
   const [isEdit, setIsEdit] = useState(false);
-
+  const [isChangePass, setIsChangePass] = useState();
+  const [error, setError] = useState('');
   const [info, setInfo] = useState({
     firstName: user.first_name,
     lastName: user.last_name,
     email: user.email,
     position: user.position,
   });
-  const [password, setPassword] = useState({ new: '', retype: '' });
+  const [password, setPassword] = useState({ id: user.id, new: '', retype: '' });
   const handleIsEdit = () => {
     setIsEdit(!isEdit);
   };
@@ -26,14 +36,25 @@ const PersonalInfo = () => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
   const handleResetPass = () => {
+    setIsChangePass(false);
     if (password.new === '' || password.retype === '') {
+      setError('Vui lòng nhập đầy đủ thông tin !');
+      return;
     }
+    if (password.new !== password.retype) {
+      setError('Mật khẩu không khớp !');
+      return;
+    }
+    dispatch(resetPassword(password));
+    setError('');
   };
+
   const saveInfo = () => {
     handleIsEdit();
   };
   return (
     <div className={style['personalInfo']}>
+      {loadingResetPass && <Loading />}
       <div className={style['title']}>Thông tin cá nhân</div>
       <div className={style['info']}>
         <div className={style['control']}>
@@ -128,8 +149,25 @@ const PersonalInfo = () => {
             placeholder="Nhập lại mật khẩu..."
           />
         </div>
-        <button>Đổi mật khẩu</button>
+        <button
+          onClick={() => {
+            setIsChangePass(true);
+          }}
+        >
+          Đổi mật khẩu
+        </button>
+        {error !== '' ? <p>{error}</p> : ''}
       </div>
+      {isChangePass && (
+        <NoticeModal
+          message={'Bạn có chắc muốn đổi mật khẩu không ?'}
+          action={handleResetPass}
+          handleSetDel={() => {
+            setIsChangePass(false);
+          }}
+        />
+      )}
+      {!localStorage.getItem('token') && <Navigate to={'/auth'} />}
     </div>
   );
 };

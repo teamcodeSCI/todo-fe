@@ -41,12 +41,12 @@
     &:hover {
       a,
       i {
-        color: #c68f22;
+        color: #3481aa;
       }
     }
   }
   .active {
-    background: linear-gradient(to right, #c68f22, #daaf69) !important;
+    background: linear-gradient(45deg, #3481aa, #489bc7) !important;
     a,
     i {
       color: #fff !important;
@@ -85,7 +85,7 @@
           display: block;
           color: #fff;
           transform: translateX(3px);
-          color: #c68f22;
+          color: #3481aa;
         }
       }
     }
@@ -130,7 +130,7 @@
       }
     }
     .logout {
-      padding: 10px;
+      padding: 7px 10px;
       margin-top: 10px;
       text-align: center;
       border-radius: 5px;

@@ -18,7 +18,7 @@
       padding: 15px 20px;
       color: #fff;
       text-align: center;
-      background: linear-gradient(to right, #c68f22, #daaf69);
+      background: linear-gradient(45deg, #3481aa, #489bc7);
       font-size: 22px;
     }
     .content {
@@ -34,14 +34,14 @@
       gap: 10px;
       button {
         font-size: 16px;
-        color: #c68f22;
-        border: 1px solid #c68f22;
+        color: #3481aa;
+        border: 1px solid #3481aa;
         background: #fff;
         padding: 5px 20px;
         border-radius: 20px;
         transition: all 0.2s linear;
         &:hover {
-          background: #c68f22;
+          background: #3481aa;
           color: #fff;
         }
       }
