@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from './sidebar.module.scss';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { menu, table } from '@/utils/const';
 import { useSelector } from 'react-redux';
 import { currentUserSelector } from '@/features/auth/authSlice';
+import NoticeModal from '../NoticeModal';
 
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [isLogout, setIsLogout] = useState(false);
   const currentUser = useSelector(currentUserSelector);
   const user = currentUser.data.data;
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate('/auth');
+  };
   return (
     <div className={style['sidebar']}>
       <div className={style['img']}>
@@ -47,13 +53,21 @@ const Sidebar = () => {
         <div
           className={style['logout']}
           onClick={() => {
-            localStorage.clear();
-            navigate('/auth');
+            setIsLogout(true);
           }}
         >
           Đăng xuất
         </div>
       </div>
+      {isLogout && (
+        <NoticeModal
+          message={'Bạn có muốn đăng xuất không ?'}
+          handleSetDel={() => {
+            setIsLogout(false);
+          }}
+          action={handleLogout}
+        />
+      )}
     </div>
   );
 };
