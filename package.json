@@ -2,6 +2,7 @@
   "name": "todo",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://scigroup.com.vn/app/padlet",
   "dependencies": {
     "@fontsource/barlow": "^5.0.6",
     "@reduxjs/toolkit": "^1.9.5",

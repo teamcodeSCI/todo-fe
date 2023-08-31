@@ -13,7 +13,7 @@ import 'react-tooltip/dist/react-tooltip.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-  <Router basename="">
+  <Router basename="/app/padlet">
     <Provider store={store}>
       <App />
     </Provider>
