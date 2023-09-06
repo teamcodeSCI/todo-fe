@@ -1,7 +1,8 @@
+import { API_URL } from '@/utils/const';
 import axios from 'axios';
 
 const http = axios.create({
-  baseURL: 'http://localhost/project/sci-work-be/public/api/',
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'Application/json',
   },

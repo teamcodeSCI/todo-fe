@@ -1,4 +1,6 @@
 import { v4 as uuid } from 'uuid';
+export const API_URL = 'https://scigroup.com.vn/app/padlet/be/public/api';
+export const APP_URL = '/app/padlet';
 export const table = [
   { id: 1, name: 'Bảng 1' },
   { id: 2, name: 'Bảng 2' },

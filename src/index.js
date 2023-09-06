@@ -9,11 +9,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './app/store';
 import 'react-tooltip/dist/react-tooltip.css';
+import { APP_URL } from './utils/const';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-  <Router basename="/app/padlet">
+  <Router basename={APP_URL}>
     <Provider store={store}>
       <App />
     </Provider>

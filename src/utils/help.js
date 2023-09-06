@@ -24,3 +24,8 @@ export const useOutside = (ref, func) => {
     };
   }, [ref, func]);
 };
+export const pressEnter = (e, func) => {
+  if (e.key === 'Enter') {
+    func();
+  }
+};

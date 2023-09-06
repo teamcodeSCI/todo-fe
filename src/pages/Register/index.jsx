@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import style from './register.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import Notice from '@/components/Notice';
-import { validateEmail } from '@/utils/help';
+import { pressEnter, validateEmail } from '@/utils/help';
 import { useDispatch } from 'react-redux';
 import { fetchPosition } from '@/features/position/positionApi';
 import { useSelector } from 'react-redux';
@@ -10,6 +10,7 @@ import { loadedPositionSelector, loadingPositionSelector, positionSelector } fro
 import Loading from '@/components/Loading';
 import { register } from '@/features/auth/authApi';
 import { loadedAuthSelector, loadingAuthSelector } from '@/features/auth/authSlice';
+import { APP_URL } from '@/utils/const';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -58,7 +59,7 @@ const Register = () => {
   };
   useEffect(() => {
     dispatch(fetchPosition());
-    if (registerLoaded) window.location.assign('/auth/login');
+    if (registerLoaded) window.location.assign(APP_URL + '/auth/login');
   }, [dispatch, registerLoaded, navigate]);
   return (
     <div className={style['register']}>
@@ -73,6 +74,7 @@ const Register = () => {
             name="firstName"
             placeholder="Nguyễn Văn"
             value={register.firstName}
+            onKeyDown={(e) => pressEnter(e, clickRegister)}
             onChange={handleRegister}
           />
         </div>
@@ -84,6 +86,7 @@ const Register = () => {
             name="lastName"
             placeholder="A"
             value={register.lastName}
+            onKeyDown={(e) => pressEnter(e, clickRegister)}
             onChange={handleRegister}
           />
         </div>
@@ -108,6 +111,7 @@ const Register = () => {
             type="text"
             name="email"
             placeholder="example@gmail.com"
+            onKeyDown={(e) => pressEnter(e, clickRegister)}
             value={register.email}
             onChange={handleRegister}
           />
@@ -119,6 +123,7 @@ const Register = () => {
             type="password"
             name="password"
             placeholder="Nhập mật khẩu"
+            onKeyDown={(e) => pressEnter(e, clickRegister)}
             value={register.password}
             onChange={handleRegister}
           />
@@ -130,6 +135,7 @@ const Register = () => {
             type="password"
             name="rePassword"
             placeholder="Nhập lại mật khẩu"
+            onKeyDown={(e) => pressEnter(e, clickRegister)}
             value={register.rePassword}
             onChange={handleRegister}
           />
