@@ -1,35 +1,55 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './table.module.scss';
-import { table } from '@/utils/const';
 import TableItem from '@/components/TableItem';
+import { useDispatch } from 'react-redux';
+import { createTopic, getAllTopic } from '@/features/topic/topicApi';
+import { useSelector } from 'react-redux';
+import { loadedTopicSelector, loadingTopicSelector, topicSelector } from '@/features/topic/topicSlice';
+import Loading from '@/components/Loading';
 
 const Table = () => {
+  const dispatch = useDispatch();
   const [isAdd, setIsAdd] = useState(false);
-  const [info, setInfo] = useState({ title: '' });
+  const [info, setInfo] = useState({ name: '' });
+  const topicList = useSelector(topicSelector);
+  const loadedTopic = useSelector(loadedTopicSelector);
+  const loadingTopic = useSelector(loadingTopicSelector);
   const handleInfo = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
   const handleAdd = () => {
     setIsAdd(!isAdd);
   };
+  const saveTopic = () => {
+    dispatch(createTopic(info));
+    setInfo({ name: '' });
+    setIsAdd(false);
+  };
+  useEffect(() => {
+    dispatch(getAllTopic());
+  }, [dispatch]);
   return (
     <div className={style['container']}>
       <div className={style['title']}>Danh sách bảng</div>
       <div className={style['table']}>
-        {table.map((item) => (
-          <TableItem key={item.id} {...item} />
-        ))}
+        {!loadingTopic ? (
+          loadedTopic && topicList.data.map((item) => <TableItem key={item.id} {...item} />)
+        ) : (
+          <Loading />
+        )}
         {isAdd ? (
           <div className={style['addItem']}>
             <input
               type="text"
-              name="title"
-              value={info.title}
+              name="name"
+              value={info.name}
               onChange={handleInfo}
               placeholder="Nhập tiêu đề bảng ..."
             />
             <div className={style['addControl']}>
-              <button className={style['submit']}>Thêm bảng</button>
+              <button className={style['submit']} onClick={saveTopic}>
+                Thêm bảng
+              </button>
               <button className={style['cancel']} onClick={handleAdd}>
                 <i className="icon-cancel-2"></i>
               </button>

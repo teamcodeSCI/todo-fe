@@ -7,11 +7,11 @@ const UserTag = (props) => {
     <>
       <div
         data-tooltip-id={props.id}
-        data-tooltip-content={props.firstName + ' ' + props.lastName}
+        data-tooltip-content={props.first_name + ' ' + props.last_name}
         style={{ background: props.background }}
         className={style['tag']}
       >
-        {props.lastName.split('')[0]}
+        {props.last_name.split('')[0]}
       </div>
       <Tooltip id={props.id} />
     </>

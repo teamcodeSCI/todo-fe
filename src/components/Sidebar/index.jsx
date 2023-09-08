@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import style from './sidebar.module.scss';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { menu, table } from '@/utils/const';
+import { menu } from '@/utils/const';
 import { useSelector } from 'react-redux';
 import { currentUserSelector } from '@/features/auth/authSlice';
 import NoticeModal from '../NoticeModal';
@@ -35,7 +35,7 @@ const Sidebar = () => {
         ))}
         <div className={style['title']}>Không gian làm việc</div>
         <ul>
-          {table.map((item) => (
+          {[].map((item) => (
             <li className={location.pathname === `/table/${item.id}` ? style['active'] : ''} key={item.id}>
               <Link to={`/table/${item.id}`}>{item.name}</Link>
             </li>
