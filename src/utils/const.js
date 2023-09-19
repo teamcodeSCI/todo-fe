@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
-export const API_URL = 'https://scigroup.com.vn/app/padlet/be/public/api';
-// export const API_URL = 'http://localhost/project/sci-work-be/public/api/';
+// export const API_URL = 'https://scigroup.com.vn/app/padlet/be/public/api';
+export const API_URL = 'http://localhost/project/sci-work-be/public/api/';
 
 export const APP_URL = '/app/padlet';
 

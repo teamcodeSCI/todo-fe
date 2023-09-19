@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import style from './table.module.scss';
 import TableItem from '@/components/TableItem';
 import { useDispatch } from 'react-redux';
-import { createTopic, getAllTopic } from '@/features/topic/topicApi';
+import { createTopic } from '@/features/topic/topicApi';
 import { useSelector } from 'react-redux';
-import { loadedTopicSelector, loadingTopicSelector, topicSelector } from '@/features/topic/topicSlice';
-import Loading from '@/components/Loading';
+import { loadedTopicSelector, topicSelector } from '@/features/topic/topicSlice';
 
 const Table = () => {
   const dispatch = useDispatch();
@@ -13,7 +12,7 @@ const Table = () => {
   const [info, setInfo] = useState({ name: '' });
   const topicList = useSelector(topicSelector);
   const loadedTopic = useSelector(loadedTopicSelector);
-  const loadingTopic = useSelector(loadingTopicSelector);
+
   const handleInfo = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
@@ -25,18 +24,12 @@ const Table = () => {
     setInfo({ name: '' });
     setIsAdd(false);
   };
-  useEffect(() => {
-    dispatch(getAllTopic());
-  }, [dispatch]);
+
   return (
     <div className={style['container']}>
       <div className={style['title']}>Danh sách bảng</div>
       <div className={style['table']}>
-        {!loadingTopic ? (
-          loadedTopic && topicList.data.map((item) => <TableItem key={item.id} {...item} />)
-        ) : (
-          <Loading />
-        )}
+        {loadedTopic && topicList.data.map((item) => <TableItem key={item.id} {...item} />)}
         {isAdd ? (
           <div className={style['addItem']}>
             <input

@@ -5,12 +5,17 @@ import { menu } from '@/utils/const';
 import { useSelector } from 'react-redux';
 import { currentUserSelector } from '@/features/auth/authSlice';
 import NoticeModal from '../NoticeModal';
+import { loadedTopicSelector, topicSelector } from '@/features/topic/topicSlice';
 
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isLogout, setIsLogout] = useState(false);
   const currentUser = useSelector(currentUserSelector);
+  const topicList = useSelector(topicSelector);
+
+  const topicLoaded = useSelector(loadedTopicSelector);
+
   const user = currentUser.data.data;
   const handleLogout = () => {
     localStorage.clear();
@@ -35,11 +40,12 @@ const Sidebar = () => {
         ))}
         <div className={style['title']}>Không gian làm việc</div>
         <ul>
-          {[].map((item) => (
-            <li className={location.pathname === `/table/${item.id}` ? style['active'] : ''} key={item.id}>
-              <Link to={`/table/${item.id}`}>{item.name}</Link>
-            </li>
-          ))}
+          {topicLoaded &&
+            topicList.data.map((item) => (
+              <li className={location.pathname === `/table/${item.id}` ? style['active'] : ''} key={item.id}>
+                <Link to={`/table/${item.id}`}>{item.name}</Link>
+              </li>
+            ))}
         </ul>
       </div>
       <div className={style['bottom']}>

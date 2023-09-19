@@ -12,6 +12,11 @@ export const createTopic = createAsyncThunk('topic/createTopic', async (body) =>
     headers: { Authorization: localStorage.getItem('token') },
   }),
 );
+export const updateTopic = createAsyncThunk('topic/updateTopic', async ({ id, name }) =>
+  http.put(`/topic/${id}`, JSON.stringify({ name: name }), {
+    headers: { Authorization: localStorage.getItem('token') },
+  }),
+);
 export const deleteTopic = createAsyncThunk('topic/deleteTopic', async (id) =>
   http.delete(`/topic/${id}`, {
     headers: { Authorization: localStorage.getItem('token') },
