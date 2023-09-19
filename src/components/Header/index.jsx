@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './header.module.scss';
-import { useOutside } from '@/utils/help';
 import { userList } from '@/utils/const';
 import UserTag from '../UserTag';
 import UserList from '../UserList';
@@ -12,7 +11,7 @@ import {
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getTopicById, updateTopic } from '@/features/topic/topicApi';
+import { getTopicById } from '@/features/topic/topicApi';
 import Loading from '../Loading';
 import UpdateTopicInput from '../UpdateTopicInput';
 
