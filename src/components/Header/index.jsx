@@ -24,7 +24,6 @@ const Header = () => {
   const loadedTopic = useSelector(currentTopicLoadedSelector);
   const currentTopic = useSelector(currentTopicSelector);
   const updatedTopic = useSelector(updatedTopicSelector);
-  console.log('current: ', currentTopic);
 
   const inputRef = useRef(null);
   const [isOpenUserList, setIsOpenUserList] = useState(false);

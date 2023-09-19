@@ -19,3 +19,8 @@ export const loginAPI = createAsyncThunk('auth/login', async (body) =>
 export const getUserAPI = createAsyncThunk('auth/getUser', async (token) =>
   http.get('/auth/get-user', { headers: { Authorization: token } }),
 );
+export const updateUserAPI = createAsyncThunk('auth/updateUser', async (body) =>
+  http.put('/auth/update-user', JSON.stringify({ first_name: body.firstName, last_name: body.lastName }), {
+    headers: { Authorization: localStorage.getItem('token') },
+  }),
+);

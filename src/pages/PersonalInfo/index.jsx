@@ -9,11 +9,11 @@ import { resetPassword } from '@/features/resetPass/resetPassAPI';
 import { loadingResetPassSelector } from '@/features/resetPass/resetPassSlice';
 import Loading from '@/components/Loading';
 import { Navigate } from 'react-router-dom';
+import { updateUserAPI } from '@/features/auth/authApi';
 
 const PersonalInfo = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(currentUserSelector);
-
   const loadingResetPass = useSelector(loadingResetPassSelector);
   const user = currentUser.data.data;
   const [isEdit, setIsEdit] = useState(false);
@@ -50,6 +50,7 @@ const PersonalInfo = () => {
   };
 
   const saveInfo = () => {
+    dispatch(updateUserAPI(info));
     handleIsEdit();
   };
   return (
@@ -108,7 +109,7 @@ const PersonalInfo = () => {
               onChange={handleInfo}
               value={info.email}
               placeholder="Email..."
-              disabled={!isEdit}
+              disabled
             />
           </div>
           <div className={style['input']}>
@@ -120,7 +121,7 @@ const PersonalInfo = () => {
               onChange={handleInfo}
               value={info.position.name}
               placeholder="Email..."
-              disabled={!isEdit}
+              disabled
             />
           </div>
         </div>
