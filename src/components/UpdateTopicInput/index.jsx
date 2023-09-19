@@ -13,7 +13,7 @@ const UpdateTopicInput = (props) => {
   const handleUpdateTitle = () => {
     setActive(false);
     if (active) {
-      if (title !== props.name) {
+      if (title !== props.name && title !== '') {
         dispatch(updateTopic({ id: props.id, name: title }));
       }
     }
