@@ -7,14 +7,21 @@ import { updateTopic } from '@/features/topic/topicApi';
 const UpdateTopicInput = (props) => {
   const dispatch = useDispatch();
   const [active, setActive] = useState(false);
+  const [error, setError] = useState(false);
   const [title, setTitle] = useState(props.name);
   const inputRef = useRef(null);
 
   const handleUpdateTitle = () => {
-    setActive(false);
     if (active) {
-      if (title !== props.name && title !== '') {
+      if (title === '') {
+        setError(true);
+        return;
+      }
+      setActive(false);
+      if (title !== props.name) {
         dispatch(updateTopic({ id: props.id, name: title }));
+
+        setError(false);
       }
     }
   };
@@ -26,7 +33,13 @@ const UpdateTopicInput = (props) => {
   return (
     <div className={style['title']} onClick={() => setActive(true)} ref={inputRef}>
       {active ? (
-        <input type="text" value={title} onKeyDown={(e) => pressEnter(e, handleUpdateTitle)} onChange={handleTitle} />
+        <input
+          type="text"
+          style={error ? { boxShadow: 'inset 0 0 0 2px red' } : { boxShadow: 'inset 0 0 0 2px #388bff' }}
+          value={title}
+          onKeyDown={(e) => pressEnter(e, handleUpdateTitle)}
+          onChange={handleTitle}
+        />
       ) : (
         <span>{title}</span>
       )}
