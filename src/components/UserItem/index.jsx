@@ -7,26 +7,13 @@ const UserItem = (props) => {
   const handleSetDel = () => {
     setIsDel(!isDel);
   };
-  let role = '';
-  switch (props.role) {
-    case 'Admin':
-      role = 'Quản trị viên';
-      break;
-    case 'Member':
-      role = 'Thành viên';
-      break;
-    default:
-      break;
-  }
   return (
     <div className={style['userItem']}>
       <div className={style['text']}>
-        <p>{props.firstName + ' ' + props.lastName}</p>
-        <span>{role}</span>
+        <p>{props.first_name + ' ' + props.last_name}</p>
+        <span>{props.id === props.ownerId ? 'Chủ sở hữu' : 'Thành viên'}</span>
       </div>
-      <div className={style['role']}>
-        <button onClick={handleSetDel}>Xóa</button>
-      </div>
+      <div className={style['role']}>{props.id !== props.ownerId && <button onClick={handleSetDel}>Xóa</button>}</div>
       {isDel && <NoticeModal message={'Bạn có chắc muốn xóa không ?'} handleSetDel={handleSetDel} />}
     </div>
   );

@@ -44,7 +44,13 @@ const Header = () => {
             {loadedTopic && currentTopic.userList.slice(0, 3).map((item) => <UserTag key={item.email} {...item} />)}
             {loadedTopic && currentTopic.length >= 3 && <div className={style['more']}>{userList.length - 3}+</div>}
           </div>
-          {isOpenUserList && <UserList handleOpenUserList={handleOpenUserList} />}
+          {isOpenUserList && loadedTopic && (
+            <UserList
+              userList={currentTopic.userList}
+              ownerId={currentTopic.user_id}
+              handleOpenUserList={handleOpenUserList}
+            />
+          )}
         </>
       )}
     </div>

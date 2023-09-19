@@ -1,11 +1,10 @@
 import React, { useRef, useState } from 'react';
 import style from './userList.module.scss';
-import { userList } from '@/utils/const';
 import UserItem from '../UserItem';
 import { useOutside } from '@/utils/help';
 import AddMember from '../AddMember';
 
-const UserList = ({ handleOpenUserList }) => {
+const UserList = ({ handleOpenUserList, userList, ownerId }) => {
   const userRef = useRef(null);
   const [isAddMember, setIsAddMember] = useState(false);
   const handleAddMember = () => {
@@ -31,7 +30,7 @@ const UserList = ({ handleOpenUserList }) => {
                 Thêm thành viên
               </button>
               {userList.map((item) => (
-                <UserItem key={item.id} {...item} />
+                <UserItem key={item.id} {...item} ownerId={ownerId} />
               ))}
             </>
           )}
