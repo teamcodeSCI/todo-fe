@@ -13,8 +13,8 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getTopicById, updateTopic } from '@/features/topic/topicApi';
-import { updatedTopicSelector } from '@/features/topic/topicSlice';
 import Loading from '../Loading';
+import UpdateTopicInput from '../UpdateTopicInput';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -23,48 +23,27 @@ const Header = () => {
   const loadingTopic = useSelector(currentTopicLoadingSelector);
   const loadedTopic = useSelector(currentTopicLoadedSelector);
   const currentTopic = useSelector(currentTopicSelector);
-  const updatedTopic = useSelector(updatedTopicSelector);
 
-  const inputRef = useRef(null);
   const [isOpenUserList, setIsOpenUserList] = useState(false);
-  const [title, setTitle] = useState('');
-  const [active, setActive] = useState(false);
+
   const handleOpenUserList = () => {
     setIsOpenUserList(!isOpenUserList);
   };
-  const handleTitle = (e) => {
-    setTitle(e.target.value);
-  };
 
-  useOutside(inputRef, () => {
-    setActive(false);
-    if (active) {
-      if (loadedTopic && title !== currentTopic.name) {
-        dispatch(updateTopic({ id, name: title }));
-      }
-    }
-  });
   useEffect(() => {
     dispatch(getTopicById(id));
-    if (updatedTopic) {
-      window.location.reload();
-    }
-  }, [dispatch, id, updatedTopic]);
+  }, [dispatch, id]);
   return (
     <div className={style['header']}>
       {loadingTopic ? (
         <Loading />
       ) : (
         <>
-          {loadedTopic && (
-            <div className={style['title']} onClick={() => setActive(true)} ref={inputRef}>
-              {active ? <input type="text" value={title} onChange={handleTitle} /> : <span>{currentTopic.name}</span>}
-            </div>
-          )}
+          {loadedTopic && <UpdateTopicInput id={id} name={currentTopic.name} />}
 
           <div className={style['user']} onClick={handleOpenUserList}>
             {loadedTopic && currentTopic.userList.slice(0, 3).map((item) => <UserTag key={item.email} {...item} />)}
-            <div className={style['more']}>{userList.length - 3}+</div>
+            {loadedTopic && currentTopic.length >= 3 && <div className={style['more']}>{userList.length - 3}+</div>}
           </div>
           {isOpenUserList && <UserList handleOpenUserList={handleOpenUserList} />}
         </>

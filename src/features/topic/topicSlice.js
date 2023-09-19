@@ -3,7 +3,6 @@ import { createTopic, deleteTopic, getAllTopic, updateTopic } from './topicApi';
 const initialState = {
   loaded: false,
   loading: false,
-  isUpdated: false,
   topicList: [],
 };
 const topicSlice = createSlice({
@@ -42,9 +41,9 @@ const topicSlice = createSlice({
       .addCase(updateTopic.fulfilled, (state, action) => {
         state.loading = false;
         state.loaded = true;
-        state.isUpdated = true;
+
         state.topicList.data = state.topicList.data.map((item) =>
-          item.name === action.payload.data.data.name ? action.payload.data.data : item,
+          item.id === action.payload.data.data.id ? action.payload.data.data : item,
         );
       })
       .addCase(updateTopic.rejected, (state, action) => {
@@ -67,6 +66,5 @@ const topicSlice = createSlice({
 export default topicSlice;
 
 export const topicSelector = (state) => state.topic.topicList;
-export const updatedTopicSelector = (state) => state.topic.isUpdated;
 export const loadingTopicSelector = (state) => state.topic.loading;
 export const loadedTopicSelector = (state) => state.topic.loaded;
