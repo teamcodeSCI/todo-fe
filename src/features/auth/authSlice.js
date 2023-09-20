@@ -47,6 +47,8 @@ const authSlice = createSlice({
         state.currentUser = action.payload;
       })
       .addCase(getUserAPI.rejected, (state, action) => {
+        localStorage.clear();
+        window.location.reload();
         state.loading = false;
         state.loaded = false;
       })
