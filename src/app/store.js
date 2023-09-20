@@ -4,6 +4,8 @@ import positionSlice from '@/features/position/positionSlice';
 import resetPassSlice from '@/features/resetPass/resetPassSlice';
 import topicByIdSlice from '@/features/topic/topicByIdSlice';
 import topicSlice from '@/features/topic/topicSlice';
+import userListSlice from '@/features/userList/userListSlice';
+import userSuggestSlice from '@/features/userList/userSuggestSlice';
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 
@@ -14,6 +16,8 @@ const rootReducer = combineReducers({
   resetPass: resetPassSlice.reducer,
   topic: topicSlice.reducer,
   topicById: topicByIdSlice.reducer,
+  userList: userListSlice.reducer,
+  userSuggest: userSuggestSlice.reducer,
 });
 const store = configureStore({
   reducer: rootReducer,

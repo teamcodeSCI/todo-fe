@@ -11,6 +11,7 @@ const UserList = ({ handleOpenUserList, userList, ownerId }) => {
     setIsAddMember(!isAddMember);
   };
   useOutside(userRef, handleOpenUserList);
+
   return (
     <div className={style['userList']}>
       <div ref={userRef} className={style['box']}>
