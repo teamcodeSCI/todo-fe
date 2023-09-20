@@ -36,11 +36,8 @@ const Login = () => {
     setNotify('');
   };
   useEffect(() => {
-    if (loginLoaded) {
-      localStorage.setItem('token', currentUser.data.data.token);
-    }
     if (localStorage.getItem('token')) navigate('/');
-  }, [loginLoaded, currentUser, navigate]);
+  }, [currentUser, navigate]);
   return (
     <div className={style['login']}>
       {loginLoading && <Loading />}
