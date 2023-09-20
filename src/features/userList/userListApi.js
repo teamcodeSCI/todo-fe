@@ -14,3 +14,10 @@ export const addUser = createAsyncThunk('userList/addUser', async (body) =>
     },
   }),
 );
+export const delUser = createAsyncThunk('userList/delUser', async (body) =>
+  http.delete(`/user-list/delete?topic_id=${body.topicId}&user_id=${body.userId}`, {
+    headers: {
+      Authorization: localStorage.getItem('token'),
+    },
+  }),
+);

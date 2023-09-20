@@ -46,7 +46,7 @@ const Header = () => {
 
           <div className={style['user']} onClick={handleOpenUserList}>
             {loadedUserList && userList.slice(0, 3).map((item) => <UserTag key={item.email} {...item} />)}
-            {loadedUserList && userList.length >= 3 && <div className={style['more']}>{userList.length - 3}+</div>}
+            {loadedUserList && userList.length > 3 && <div className={style['more']}>{userList.length - 3}+</div>}
           </div>
           {isOpenUserList && loadedTopic && (
             <UserList userList={userList} ownerId={currentTopic.user_id} handleOpenUserList={handleOpenUserList} />

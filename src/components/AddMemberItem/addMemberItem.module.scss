@@ -2,11 +2,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   .text {
     p {
       margin: 0;
       font-size: 18px;
+      display: flex;
+      gap: 7px;
+      align-items: flex-end;
     }
     span {
       font-size: 14px;

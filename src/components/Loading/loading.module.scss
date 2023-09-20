@@ -7,20 +7,21 @@
   }
 }
 .loading {
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: fixed !important;
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  z-index: 999999 !important;
   button {
-    animation: spin 0.5s linear infinite;
-    font-size: 40px;
-    color: #3481aa;
-    background: none;
-    border: none;
+    animation: spin 0.5s linear infinite !important;
+    font-size: 40px !important;
+    color: #3481aa !important;
+    background: none !important;
+    border: none !important;
   }
 }
