@@ -1,18 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import style from './jobs.module.scss';
-import { v4 as uuid } from 'uuid';
 import Category from '../../components/Category';
 import { useDispatch } from 'react-redux';
 import { createCategories, fetchCategories, updateCategories } from '@/features/category/categoriesApi';
 import { useSelector } from 'react-redux';
-import { categoriesListSelector, loadedCategoriesSelector } from '@/features/category/categoriesSlice';
+import {
+  categoriesListSelector,
+  loadedCategoriesSelector,
+  loadingCategoriesSelector,
+} from '@/features/category/categoriesSlice';
+import { useLocation } from 'react-router-dom';
+import Loading from '@/components/Loading';
+import { pressEnter } from '@/utils/help';
 
 const Jobs = () => {
   const dispatch = useDispatch();
-
+  const location = useLocation();
+  const paths = location.pathname.split('/');
+  const topicId = paths[paths.length - 1];
   const jobs = useSelector(categoriesListSelector);
-  const loaded = useSelector(loadedCategoriesSelector);
+  const loadedCate = useSelector(loadedCategoriesSelector);
+  const loadingCate = useSelector(loadingCategoriesSelector);
 
   const [isAdd, setIsAdd] = useState(false);
   const [newCate, setNewCate] = useState('');
@@ -28,27 +37,33 @@ const Jobs = () => {
   };
   const createNewCate = () => {
     if (newCate !== '') {
-      dispatch(createCategories({ id: uuid(), title: newCate, jobs: [] }));
+      dispatch(createCategories({ topicId, title: newCate }));
       setNewCate('');
       setIsAdd(false);
     }
   };
   useEffect(() => {
-    dispatch(fetchCategories());
-  }, [dispatch]);
+    dispatch(fetchCategories(topicId));
+  }, [dispatch, topicId]);
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <div className={style['job']}>
-        {loaded &&
+        {loadedCate &&
           jobs.map((section) => (
-            <Droppable key={section.id} droppableId={section.id}>
+            <Droppable key={section.id} droppableId={String(section.id)}>
               {(provided) => <Category provided={provided} section={section} />}
             </Droppable>
           ))}
         <div className={style['newJob']} style={isAdd ? { opacity: 1 } : { opacity: 0.6 }}>
           {isAdd ? (
             <div className={style['addForm']}>
-              <input type="text" value={newCate} onChange={handleNewCate} placeholder="Nhập tiêu đề danh sách..." />
+              <input
+                type="text"
+                value={newCate}
+                onChange={handleNewCate}
+                onKeyDown={(e) => pressEnter(e, createNewCate)}
+                placeholder="Nhập tiêu đề danh sách..."
+              />
               <div className={style['btn']}>
                 <button className={style['submit']} onClick={createNewCate}>
                   Thêm danh sách
@@ -63,6 +78,7 @@ const Jobs = () => {
               + Thêm danh sách khác
             </div>
           )}
+          {loadingCate && <Loading />}
         </div>
       </div>
     </DragDropContext>
