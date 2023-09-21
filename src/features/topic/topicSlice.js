@@ -29,7 +29,7 @@ const topicSlice = createSlice({
       .addCase(createTopic.fulfilled, (state, action) => {
         state.loading = false;
         state.loaded = true;
-        state.topicList.data.push(action.payload.data.data);
+        state.topicList.data.unshift(action.payload.data.data);
       })
       .addCase(createTopic.rejected, (state, action) => {
         state.loading = false;

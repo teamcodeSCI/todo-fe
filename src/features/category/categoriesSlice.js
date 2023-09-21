@@ -69,6 +69,7 @@ const categoriesSlice = createSlice({
       .addCase(createItem.fulfilled, (state, action) => {
         state.loading = false;
         state.loaded = true;
+        console.log(action.payload);
         state.categoriesList.find((item) => item.id === action.payload.category_id).jobs.push(action.payload);
       }),
 });

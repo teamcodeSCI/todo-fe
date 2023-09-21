@@ -9,6 +9,7 @@ import { loadedTopicSelector, topicSelector } from '@/features/topic/topicSlice'
 const Table = () => {
   const dispatch = useDispatch();
   const [isAdd, setIsAdd] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [info, setInfo] = useState({ name: '' });
   const topicList = useSelector(topicSelector);
   const loadedTopic = useSelector(loadedTopicSelector);
@@ -20,6 +21,11 @@ const Table = () => {
     setIsAdd(!isAdd);
   };
   const saveTopic = () => {
+    if (info.name === '') {
+      setIsError(true);
+      return;
+    }
+    setIsError(false);
     dispatch(createTopic(info));
     setInfo({ name: '' });
     setIsAdd(false);
@@ -33,6 +39,7 @@ const Table = () => {
         {isAdd ? (
           <div className={style['addItem']}>
             <input
+              style={{ borderColor: isError ? 'red' : '#3481aa' }}
               type="text"
               name="name"
               value={info.name}

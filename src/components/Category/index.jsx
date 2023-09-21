@@ -31,10 +31,11 @@ const Category = ({ provided, section }) => {
     setItem({ ...item, [e.target.name]: e.target.value });
   };
   const saveItem = () => {
-    if (item.title === '') return;
-    dispatch(createItem(item));
-    setItem({ id: '', category_id: '', title: '' });
-    setIsAdd(!isAdd);
+    if (item.title !== '') {
+      dispatch(createItem(item));
+      setItem({ ...item, title: '' });
+      setIsAdd(!isAdd);
+    }
   };
   useOutside(inputRef, () => {
     setActive(false);
