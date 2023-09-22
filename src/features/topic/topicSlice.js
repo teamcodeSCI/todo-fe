@@ -17,7 +17,6 @@ const topicSlice = createSlice({
         state.loading = false;
         state.loaded = true;
         state.topicList = action.payload.data;
-        state.topicList.data = state.topicList.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       })
       .addCase(getAllTopic.rejected, (state, action) => {
         state.loading = false;
@@ -29,7 +28,7 @@ const topicSlice = createSlice({
       .addCase(createTopic.fulfilled, (state, action) => {
         state.loading = false;
         state.loaded = true;
-        state.topicList.data.unshift(action.payload.data.data);
+        state.topicList.data.push(action.payload.data.data);
       })
       .addCase(createTopic.rejected, (state, action) => {
         state.loading = false;

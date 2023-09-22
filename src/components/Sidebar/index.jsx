@@ -41,11 +41,14 @@ const Sidebar = () => {
         <div className={style['title']}>Không gian làm việc</div>
         <ul>
           {topicLoaded &&
-            topicList.data.slice(0, 5).map((item) => (
-              <li className={location.pathname === `/table/${item.id}` ? style['active'] : ''} key={item.id}>
-                <Link to={`/table/${item.id}`}>{item.name}</Link>
-              </li>
-            ))}
+            [...topicList.data]
+              .reverse()
+              .slice(0, 5)
+              .map((item) => (
+                <li className={location.pathname === `/table/${item.id}` ? style['active'] : ''} key={item.id}>
+                  <Link to={`/table/${item.id}`}>{item.name}</Link>
+                </li>
+              ))}
         </ul>
       </div>
       <div className={style['bottom']}>

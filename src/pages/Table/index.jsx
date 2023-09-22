@@ -4,7 +4,9 @@ import TableItem from '@/components/TableItem';
 import { useDispatch } from 'react-redux';
 import { createTopic } from '@/features/topic/topicApi';
 import { useSelector } from 'react-redux';
-import { loadedTopicSelector, topicSelector } from '@/features/topic/topicSlice';
+import { loadedTopicSelector, loadingTopicSelector, topicSelector } from '@/features/topic/topicSlice';
+import { pressEnter } from '@/utils/help';
+import Loading from '@/components/Loading';
 
 const Table = () => {
   const dispatch = useDispatch();
@@ -13,6 +15,7 @@ const Table = () => {
   const [info, setInfo] = useState({ name: '' });
   const topicList = useSelector(topicSelector);
   const loadedTopic = useSelector(loadedTopicSelector);
+  const loadingTopic = useSelector(loadingTopicSelector);
 
   const handleInfo = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
@@ -44,6 +47,7 @@ const Table = () => {
               name="name"
               value={info.name}
               onChange={handleInfo}
+              onKeyDown={(e) => pressEnter(e, saveTopic)}
               placeholder="Nhập tiêu đề bảng ..."
             />
             <div className={style['addControl']}>
@@ -61,6 +65,7 @@ const Table = () => {
           </div>
         )}
       </div>
+      {loadingTopic && <Loading />}
     </div>
   );
 };
