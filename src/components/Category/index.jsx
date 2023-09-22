@@ -3,20 +3,20 @@ import style from './category.module.scss';
 import Card from '../Card';
 import { pressEnter, useOutside } from '@/utils/help';
 import { Tooltip } from 'react-tooltip';
-import { v4 as uuid } from 'uuid';
 import { useDispatch } from 'react-redux';
-import { createItem, deleteCategories, updateCategories } from '@/features/category/categoriesApi';
+import { deleteCategories, updateCategories } from '@/features/category/categoriesApi';
 import NoticeModal from '../NoticeModal';
 import { useSelector } from 'react-redux';
 import { loadingCategoriesSelector } from '@/features/category/categoriesSlice';
 import Loading from '../Loading';
+import { createItem } from '@/features/category/itemApi';
 
 const Category = ({ provided, section }) => {
   const dispatch = useDispatch();
   const loadingCate = useSelector(loadingCategoriesSelector);
   const inputRef = useRef(null);
   const dropdownRef = useRef(null);
-  const [item, setItem] = useState({ id: uuid(), category_id: section.id, title: '' });
+  const [item, setItem] = useState({ categoryId: section.id, title: '' });
   const [dropdown, setDropdown] = useState(false);
   const [title, setTitle] = useState(section.name);
   const [active, setActive] = useState(false);

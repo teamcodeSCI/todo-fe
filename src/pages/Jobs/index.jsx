@@ -3,7 +3,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import style from './jobs.module.scss';
 import Category from '../../components/Category';
 import { useDispatch } from 'react-redux';
-import { createCategories, fetchCategories, updateCategories } from '@/features/category/categoriesApi';
+import { createCategories, fetchCategories } from '@/features/category/categoriesApi';
 import { useSelector } from 'react-redux';
 import {
   categoriesListSelector,
@@ -13,6 +13,7 @@ import {
 import { useLocation } from 'react-router-dom';
 import Loading from '@/components/Loading';
 import { pressEnter } from '@/utils/help';
+import { updatePosItem } from '@/features/category/itemApi';
 
 const Jobs = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const Jobs = () => {
   };
 
   const handleDragEnd = (value) => {
-    dispatch(updateCategories(value));
+    dispatch(updatePosItem(value));
   };
   const handleNewCate = (e) => {
     setNewCate(e.target.value);

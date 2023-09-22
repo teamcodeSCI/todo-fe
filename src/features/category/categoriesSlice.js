@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createCategories, createItem, deleteCategories, fetchCategories, updateCategories } from './categoriesApi';
+import { createCategories, deleteCategories, fetchCategories, updateCategories } from './categoriesApi';
+import { createItem, updatePosItem } from './itemApi';
 const initialState = {
   loaded: false,
   loading: false,
@@ -18,6 +19,10 @@ const categoriesSlice = createSlice({
         state.loaded = true;
         state.categoriesList = action.payload.data.data;
       })
+      .addCase(fetchCategories.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
+      })
       .addCase(updateCategories.pending, (state, action) => {
         state.loading = true;
       })
@@ -27,35 +32,10 @@ const categoriesSlice = createSlice({
         state.categoriesList = state.categoriesList.map((item) =>
           item.id === action.payload.data.data.id ? action.payload.data.data : item,
         );
-        // if (!action.payload) return;
-        // const { source, destination } = action.payload;
-        // if (destination !== null) {
-        //   const sourceColIdx = state.categoriesList.findIndex((e) => e.id === source.droppableId);
-        //   const destinationColIdx = state.categoriesList.findIndex((e) => e.id === destination.droppableId);
-        //   if (source.droppableId === destination.droppableId) {
-        //     const sourceRowIdx = source.index;
-        //     const destinationRowIdx = destination.index;
-        //     const sourceCol = state.categoriesList[sourceColIdx];
-
-        //     const sourceTasks = sourceCol.jobs[sourceRowIdx];
-        //     const destinationTasks = sourceCol.jobs[destinationRowIdx];
-
-        //     state.categoriesList[sourceColIdx].jobs[destinationRowIdx] = sourceTasks;
-        //     state.categoriesList[sourceColIdx].jobs[sourceRowIdx] = destinationTasks;
-        //   } else {
-        //     const sourceCol = state.categoriesList[sourceColIdx];
-        //     const destinationCol = state.categoriesList[destinationColIdx];
-
-        //     const sourceTasks = [...sourceCol.jobs];
-        //     const destinationTasks = [...destinationCol.jobs];
-
-        //     const [removed] = sourceTasks.splice(source.index, 1);
-        //     destinationTasks.splice(destination.index, 0, removed);
-
-        //     state.categoriesList[sourceColIdx].jobs = sourceTasks;
-        //     state.categoriesList[destinationColIdx].jobs = destinationTasks;
-        //   }
-        // }
+      })
+      .addCase(updateCategories.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
       })
       .addCase(createCategories.pending, (state, action) => {
         state.loading = true;
@@ -64,6 +44,10 @@ const categoriesSlice = createSlice({
         state.loading = false;
         state.loaded = true;
         state.categoriesList.push(action.payload.data.data);
+      })
+      .addCase(createCategories.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
       })
       .addCase(deleteCategories.pending, (state, action) => {
         state.loading = true;
@@ -77,15 +61,60 @@ const categoriesSlice = createSlice({
         state.loading = false;
         state.loaded = false;
       })
-
       .addCase(createItem.pending, (state, action) => {
         state.loading = true;
       })
       .addCase(createItem.fulfilled, (state, action) => {
         state.loading = false;
         state.loaded = true;
-        console.log(action.payload);
-        state.categoriesList.find((item) => item.id === action.payload.category_id).jobs.push(action.payload);
+        state.categoriesList
+          .find((item) => item.id === action.payload.data.data.category_id)
+          .items.push(action.payload.data.data);
+      })
+      .addCase(createItem.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
+      })
+      .addCase(updatePosItem.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(updatePosItem.fulfilled, (state, action) => {
+        state.loading = false;
+        state.loaded = true;
+        if (!action.payload) return;
+        const { source, destination } = action.payload;
+
+        if (destination !== null) {
+          const sourceColIdx = state.categoriesList.findIndex((e) => e.id === Number(source.droppableId));
+          const destinationColIdx = state.categoriesList.findIndex((e) => e.id === Number(destination.droppableId));
+          if (source.droppableId === destination.droppableId) {
+            const sourceRowIdx = source.index;
+            const destinationRowIdx = destination.index;
+            const sourceCol = state.categoriesList[sourceColIdx];
+
+            const sourceTasks = sourceCol.items[sourceRowIdx];
+            const destinationTasks = sourceCol.items[destinationRowIdx];
+
+            state.categoriesList[sourceColIdx].items[destinationRowIdx] = sourceTasks;
+            state.categoriesList[sourceColIdx].items[sourceRowIdx] = destinationTasks;
+          } else {
+            const sourceCol = state.categoriesList[sourceColIdx];
+            const destinationCol = state.categoriesList[destinationColIdx];
+
+            const sourceTasks = [...sourceCol.items];
+            const destinationTasks = [...destinationCol.items];
+
+            const [removed] = sourceTasks.splice(source.index, 1);
+            destinationTasks.splice(destination.index, 0, removed);
+
+            state.categoriesList[sourceColIdx].items = sourceTasks;
+            state.categoriesList[destinationColIdx].items = destinationTasks;
+          }
+        }
+      })
+      .addCase(updatePosItem.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
       }),
 });
 export default categoriesSlice;

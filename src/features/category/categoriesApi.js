@@ -19,4 +19,3 @@ export const deleteCategories = createAsyncThunk('categories/deleteCategories', 
     headers: { Authorization: localStorage.getItem('token') },
   }),
 );
-export const createItem = createAsyncThunk('item/createItem', async (item) => item);
