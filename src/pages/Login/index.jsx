@@ -6,14 +6,13 @@ import Notice from '@/components/Notice';
 import { useDispatch } from 'react-redux';
 import { loginAPI } from '@/features/auth/authApi';
 import { useSelector } from 'react-redux';
-import { currentUserSelector, loadedAuthSelector, loadingAuthSelector } from '@/features/auth/authSlice';
+import { currentUserSelector, loadingAuthSelector } from '@/features/auth/authSlice';
 import Loading from '@/components/Loading';
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loginLoading = useSelector(loadingAuthSelector);
-  const loginLoaded = useSelector(loadedAuthSelector);
   const currentUser = useSelector(currentUserSelector);
 
   const [login, setLogin] = useState({ email: '', password: '' });
