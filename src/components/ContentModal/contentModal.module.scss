@@ -100,10 +100,13 @@
             background: #091e420f;
             transition: all 0.2s linear;
             padding: 10px;
-            height: 80px;
+            min-height: 80px;
             font-size: 14px;
-            font-weight: 600;
+
             cursor: pointer;
+            .intro {
+                font-weight: 600;
+            }
             &:hover {
                 background: #091e4224;
             }

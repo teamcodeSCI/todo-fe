@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createCategories, deleteCategories, fetchCategories, updateCategories } from './categoriesApi';
-import { createItem, updatePosItem } from './itemApi';
+import { createItem, updateItem, updatePosItem } from './itemApi';
 const initialState = {
   loaded: false,
   loading: false,
@@ -72,6 +72,22 @@ const categoriesSlice = createSlice({
           .items.push(action.payload.data.data);
       })
       .addCase(createItem.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
+      })
+      .addCase(updateItem.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(updateItem.fulfilled, (state, action) => {
+        state.loading = false;
+        state.loaded = true;
+        state.categoriesList.forEach((item) => {
+          if (item.id === action.payload.data.data.category_id) {
+            item.items = item.items.map((e) => (e.id === action.payload.data.data.id ? action.payload.data.data : e));
+          }
+        });
+      })
+      .addCase(updateItem.rejected, (state, action) => {
         state.loading = false;
         state.loaded = false;
       })

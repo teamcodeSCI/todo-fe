@@ -4,14 +4,18 @@ import JoditEditor from 'jodit-react';
 import { useRef } from 'react';
 import { useState } from 'react';
 import { useOutside } from '@/utils/help';
+import { useDispatch } from 'react-redux';
+import { updateItem } from '@/features/category/itemApi';
 
 const ContentModal = (props) => {
+  const dispatch = useDispatch();
   const editor = useRef(null);
   const contentModalRef = useRef(null);
   const inputRef = useRef(null);
   const [isEdit, setIsEdit] = useState(false);
   const [isEditTitle, setIsEditTitle] = useState(false);
-  const [content, setContent] = useState({ title: props.content, content: '' });
+  const [content, setContent] = useState({ id: props.id, title: props.title, content: props.content });
+  const decodedHTML = { __html: content.content };
 
   const config = {
     readonly: false,
@@ -23,14 +27,20 @@ const ContentModal = (props) => {
   const handleIsEdit = () => {
     setIsEdit(!isEdit);
   };
-  const handleEdit = () => {
+  const handleEditTitle = () => {
     handleIsEditTitle();
-    if (props.content !== content.title) {
-      console.log(content.title);
+    if (props.title !== content.title && content.title !== '') {
+      dispatch(updateItem(content));
     }
   };
-  useOutside(contentModalRef, props.handleIsDetail);
-  useOutside(inputRef, handleEdit);
+  const handleEditContent = () => {
+    if (props.content !== content.content && content.content !== '') {
+      dispatch(updateItem(content));
+      handleIsEdit();
+    }
+  };
+  // useOutside(contentModalRef, props.handleIsDetail);
+  useOutside(inputRef, handleEditTitle);
   return (
     <div className={style['contentModal']}>
       <div className={style['box']} ref={contentModalRef}>
@@ -69,13 +79,17 @@ const ContentModal = (props) => {
                 onChange={(newContent) => {}}
               />
               <div className={style['control']}>
-                <button> Lưu </button>
+                <button onClick={handleEditContent}> Lưu </button>
                 <button onClick={handleIsEdit}> Hủy </button>
               </div>
             </div>
           ) : (
             <div className={style['main']} onClick={handleIsEdit}>
-              Thêm nội dung chi tiết...
+              {content.content === '' || props.content === null || content.content === `<p><br></p>` ? (
+                <span className={style['intro']}> Thêm nội dung chi tiết...</span>
+              ) : (
+                <div dangerouslySetInnerHTML={decodedHTML} />
+              )}
             </div>
           )}
         </div>

@@ -20,7 +20,7 @@ const Card = ({ job, idx }) => {
             style={{ ...provided.draggableProps.style, opacity: snapshot.isDragging ? '0.5' : 1 }}
             onClick={handleIsDetail}
           >
-            <div className={style['card']}>{job.content}</div>
+            <div className={style['card']}>{job.title}</div>
             {provided.placeholder}
           </div>
         )}

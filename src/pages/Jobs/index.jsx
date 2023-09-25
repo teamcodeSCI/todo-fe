@@ -21,6 +21,7 @@ const Jobs = () => {
   const paths = location.pathname.split('/');
   const topicId = paths[paths.length - 1];
   const jobs = useSelector(categoriesListSelector);
+
   const loadedCate = useSelector(loadedCategoriesSelector);
   const loadingCate = useSelector(loadingCategoriesSelector);
 
