@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import style from './contentModal.module.scss';
 import JoditEditor from 'jodit-react';
-import { useRef } from 'react';
-import { useState } from 'react';
 import { useOutside } from '@/utils/help';
 import { useDispatch } from 'react-redux';
 import { updateItem } from '@/features/category/itemApi';
