@@ -1,8 +1,47 @@
 .card {
+  position: relative;
   padding: 10px 10px;
   border-radius: 8px;
   background: #fff;
   color: #172b4d;
   cursor: pointer;
-  box-shadow: 0 1px 1px #091d4240, 0 0 1px #091e424f;
+  transition: all 0.2s linear;
+  box-shadow:
+    0 1px 1px #091d4240,
+    0 0 1px #091e424f;
+  &:hover {
+    background: #fdf3e2;
+    button {
+      display: block;
+    }
+  }
+  span {
+    display: block;
+  }
+  i {
+    font-size: 11px;
+    display: block;
+    margin-top: 5px;
+  }
+  button {
+    display: none;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 0;
+    border: none;
+    background: none;
+    padding: 5px;
+    border-radius: 4px;
+    z-index: 10;
+    transition: all 0.2s linear;
+    &:hover {
+      background: #e1d8c8;
+    }
+    i {
+      color: #7d7d7d;
+      margin: 0;
+      font-size: 14px;
+    }
+  }
 }

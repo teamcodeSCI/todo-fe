@@ -27,3 +27,10 @@ export const updateItem = createAsyncThunk(
       headers: { Authorization: localStorage.getItem('token') },
     }),
 );
+export const deleteItem = createAsyncThunk(
+  'item/deleteItem',
+  async (id) =>
+    await http.delete(`/item/${id}`, {
+      headers: { Authorization: localStorage.getItem('token') },
+    }),
+);
