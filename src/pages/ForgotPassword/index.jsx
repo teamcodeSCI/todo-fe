@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import style from './forgotPassword.module.scss';
-import { Link } from 'react-router-dom';
-import { validateEmail } from '@/utils/help';
+import { Link, Navigate } from 'react-router-dom';
+import { pressEnter, validateEmail } from '@/utils/help';
 import Notice from '@/components/Notice';
+import { useDispatch } from 'react-redux';
+import { updatePasswordAPI } from '@/features/auth/authApi';
+import { useSelector } from 'react-redux';
+import { loadedAuthSelector, loadingAuthSelector } from '@/features/auth/authSlice';
+import Loading from '@/components/Loading';
 
 const ForgotPassword = () => {
+  const dispatch = useDispatch();
+  const loadedForgotPass = useSelector(loadedAuthSelector);
+  const loadingForgotPass = useSelector(loadingAuthSelector);
   const [forgotPass, setForgotPass] = useState({
     email: '',
     password: '',
@@ -19,12 +27,19 @@ const ForgotPassword = () => {
       setNotify('Email không hợp lệ !');
       return;
     }
+    if (forgotPass.password !== forgotPass.rePassword) {
+      setNotify('Nhập lại mật khẩu không đúng !');
+      return;
+    }
+    dispatch(updatePasswordAPI(forgotPass));
   };
   const handleClose = () => {
     setNotify('');
   };
   return (
     <div className={style['forgotPassword']}>
+      {loadingForgotPass && <Loading />}
+      {loadedForgotPass && <Navigate to={'/auth'} />}
       {notify !== '' && <Notice notice={notify} close={handleClose} />}
       <div className={style['form']}>
         <div className={style['input']}>
@@ -38,6 +53,7 @@ const ForgotPassword = () => {
             type="password"
             name="password"
             value={forgotPass.password}
+            onKeyDown={(e) => pressEnter(e, clickForgotPass)}
             onChange={handleForgotPass}
           />
         </div>
@@ -48,6 +64,7 @@ const ForgotPassword = () => {
             type="password"
             name="rePassword"
             value={forgotPass.rePassword}
+            onKeyDown={(e) => pressEnter(e, clickForgotPass)}
             onChange={handleForgotPass}
           />
         </div>

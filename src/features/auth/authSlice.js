@@ -1,4 +1,4 @@
-import { getUserAPI, loginAPI, register, updateUserAPI } from './authApi';
+import { getUserAPI, loginAPI, register, updatePasswordAPI, updateUserAPI } from './authApi';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -61,6 +61,18 @@ const authSlice = createSlice({
         state.currentUser = action.payload;
       })
       .addCase(updateUserAPI.rejected, (state, action) => {
+        state.loading = false;
+        state.loaded = false;
+      })
+      .addCase(updatePasswordAPI.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(updatePasswordAPI.fulfilled, (state, action) => {
+        state.loading = false;
+        state.loaded = true;
+        state.currentUser = action.payload;
+      })
+      .addCase(updatePasswordAPI.rejected, (state, action) => {
         state.loading = false;
         state.loaded = false;
       });

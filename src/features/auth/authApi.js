@@ -30,3 +30,13 @@ export const updateUserAPI = createAsyncThunk(
       headers: { Authorization: localStorage.getItem('token') },
     }),
 );
+
+export const updatePasswordAPI = createAsyncThunk(
+  'auth/updatePasswordAPI',
+  async (body) =>
+    await http.put(
+      '/auth/update-password',
+      JSON.stringify({ email: body.email, password: body.password, c_password: body.rePassword }),
+      {},
+    ),
+);
